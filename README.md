@@ -1,2 +1,3 @@
-# ReactiveUI.Sandbox
-A sandbox for me to create amazing Reactive sand castles
+# Reactive.Sandbox
+
+This is a sandbox where I can build amazing sand castles with Reactive Extensions and ReactiveUI
