@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="3.4.0.1008975" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\github\reactiveui\ReactiveUI\src\ReactiveUI.XamForms\ReactiveUI.XamForms.csproj" />
+    <ProjectReference Include="..\..\..\..\..\..\github\reactiveui\ReactiveUI\src\ReactiveUI\ReactiveUI.csproj" />
+    <ProjectReference Include="..\..\..\..\..\..\github\reactiveui\splat\src\Splat\Splat.csproj" />
+  </ItemGroup>
+</Project>
