@@ -1,0 +1,24 @@
+﻿<rxui:ReactiveWindow
+    xmlns:rxui="http://reactiveui.net" 
+    x:Class="GH2076.MainWindow"
+    x:TypeArguments="gh2076:MainViewModel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:gh2076="clr-namespace:GH2076"
+    Title="ReactiveUI.Routing" Height="360" Width="620">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <rxui:RoutedViewHost 
+            Grid.Row="0" 
+            x:Name="RoutedViewHost"
+            HorizontalContentAlignment="Stretch"
+            VerticalContentAlignment="Stretch" />
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="15">
+            <Button x:Name="GoNextButton" Content="Go to first" />
+            <Button x:Name="GoBackButton" Content="Go back" Margin="5 0 0 0" />
+        </StackPanel>
+    </Grid>
+</rxui:ReactiveWindow>

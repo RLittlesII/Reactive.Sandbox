@@ -1,0 +1,14 @@
+﻿<reactiveUi:ReactiveUserControl
+    x:Class="GH2076.FirstView"
+    x:TypeArguments="gh2076:FirstViewModel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:reactiveUi="http://reactiveui.net"
+    xmlns:gh2076="clr-namespace:GH2076"
+    Background="LightSeaGreen"
+    mc:Ignorable="d">
+    <TextBlock x:Name="PathTextBlock" Foreground="White" Margin="10" />
+</reactiveUi:ReactiveUserControl>
+
