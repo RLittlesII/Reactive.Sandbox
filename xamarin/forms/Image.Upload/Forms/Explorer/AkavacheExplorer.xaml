@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<xamForms:ReactiveContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xamForms="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
+             xmlns:explorer="clr-namespace:Forms.Explorer;assembly=Forms"
+             x:TypeArguments="explorer:AkavacheExplorerViewModel"
+             x:Class="Forms.Explorer.AkavacheExplorer">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Hello, world!"
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="CenterAndExpand" />
+            <Label x:Name="QueuedCount" />
+            <Button x:Name="Queue" />
+        </StackLayout>
+    </ContentPage.Content>
+</xamForms:ReactiveContentPage>
