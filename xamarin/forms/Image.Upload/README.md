@@ -3,7 +3,10 @@
 1. Forms and their images that are ready to upload would be grabbed from Akavache cache and added to a Concurrent Queue making sure of not adding duplicate sets.
 2. A Service running in the app that can be turned on and off will grab the next form in the Concurrent Queue and its associated images and upload them using an API Endpoint.
 3. Upon each successful form and image set that is uploaded the form and image set gets marked as uploaded in the Akavache cache.
-4. If an image in a set is not uploaded completely, the upload service will have the ability to retry.
+4. If an image in a set is not uploaded completely, the upload service will have the ability to retry individual images.
+5. When a Form and its respective image set are uploaded, we make 1 more call to an artbiruary API endpoint to fire off some code.
+6. Nice to have - Upload throttling and max amount of simulataneous uploads.
+
 
 ```csharp
 public class AkavacheExplorerViewModel : ViewModelBase
