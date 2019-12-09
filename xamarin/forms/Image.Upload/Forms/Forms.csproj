@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ProduceAssemblyReference>true</ProduceAssemblyReference>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="akavache" Version="6.9.10" />
+    <PackageReference Include="akavache.core" Version="6.9.10" />
+    <PackageReference Include="akavache.sqlite3" Version="6.9.10" />
+    <PackageReference Include="Punchclock" Version="3.1.1" />
+    <PackageReference Include="ReactiveUI.Events.XamForms" Version="10.5.43" />
+    <PackageReference Include="ReactiveUI.Fody" Version="11.0.1" />
+    <PackageReference Include="ReactiveUI.XamForms" Version="10.5.43" />
+    <PackageReference Include="Sextant.XamForms" Version="2.3.9" />
+    <PackageReference Include="Xamarin.Forms" Version="4.2.0.910310" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Explorer\FormsToUploadPage.xaml.cs">
+      <DependentUpon>FormsToUploadPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+</Project>
