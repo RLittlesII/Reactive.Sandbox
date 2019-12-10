@@ -1,4 +1,11 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using System.Reactive.Linq;
+using Forms.Explorer;
+using ReactiveUI;
+using Sextant;
+using Sextant.XamForms;
+using Splat;
+using Xamarin.Forms;
 
 namespace Forms
 {
@@ -7,8 +14,21 @@ namespace Forms
         public App()
         {
             InitializeComponent();
+            
+            Sextant.Sextant.Instance.InitializeForms();
 
-            MainPage = new MainPage();
+            Locator
+                .CurrentMutable
+                .RegisterView<AkavacheExplorer, AkavacheExplorerViewModel>();
+
+            Locator
+                .Current
+                .GetService<IParameterViewStackService>()
+                .PushPage(new AkavacheExplorerViewModel(), resetStack: true, animate: false)
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Subscribe();
+
+            MainPage = Locator.Current.GetNavigationView();
         }
 
         protected override void OnStart()
