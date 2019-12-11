@@ -11,6 +11,8 @@
             <Label Text="Hello, world!"
                    VerticalOptions="CenterAndExpand"
                    HorizontalOptions="CenterAndExpand" />
+            <Label x:Name="QueuedCount" />
+            <Button x:Name="Queue" />
         </StackLayout>
     </ContentPage.Content>
 </xamForms:ReactiveContentPage>
