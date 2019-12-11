@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reactive.Linq;
 using Forms.Explorer;
+using Forms.Services;
 using ReactiveUI;
 using Sextant;
 using Sextant.XamForms;
@@ -24,7 +25,7 @@ namespace Forms
             Locator
                 .Current
                 .GetService<IParameterViewStackService>()
-                .PushPage(new AkavacheExplorerViewModel(), resetStack: true, animate: false)
+                .PushPage(new AkavacheExplorerViewModel(new ImageUploadService()), resetStack: true, animate: false)
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Subscribe();
 
