@@ -36,12 +36,20 @@ namespace Forms.Services
 
         private async Task UploadImage(UploadPayload payload)
         {
-            _queueSubject.OnNext(new UploadEventArgs{ Id = payload.Id, State = UploadState.UploadStarted });
+            try
+            {
+                _queueSubject.OnNext(new UploadEventArgs { Id = payload.Id, State = UploadState.UploadStarted });
 
-            // Send your network call
-            await Task.CompletedTask;
+                // Send your network call
+                await Task.CompletedTask;
 
-            _queueSubject.OnNext(new UploadEventArgs{ Id = payload.Id, State = UploadState.UploadCompleted });
+                _queueSubject.OnNext(new UploadEventArgs { Id = payload.Id, State = UploadState.UploadCompleted });
+            }
+            catch (Exception e)
+            {
+                _queueSubject.OnNext(new UploadEventArgs { Id = payload.Id, State = UploadState.Errored });
+                throw;
+            }
         }
 
         public void Dispose()

@@ -24,14 +24,9 @@ namespace Forms.Explorer
                 .Events()
                 .Clicked
                 .ObserveOn(RxApp.MainThreadScheduler)
-                .Do(_ => Animate())
                 .InvokeCommand(this, x => x.ViewModel.QueueUpload);
 
             this.WhenAnyObservable(x => x.ViewModel.QueueUpload.IsExecuting).Subscribe(_ => { });
-        }
-
-        public void Animate()
-        {
         }
     }
 }

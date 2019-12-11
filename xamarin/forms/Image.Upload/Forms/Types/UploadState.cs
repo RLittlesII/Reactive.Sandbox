@@ -5,6 +5,7 @@
         Queued,
         UploadStarted,
         UploadCompleted,
-        Dequeued
+        Dequeued,
+        Errored
     }
 }
