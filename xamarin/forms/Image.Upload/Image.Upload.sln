@@ -20,7 +20,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{29BF0347-416
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{77AF258B-4FB9-4D12-A905-BAEB0F0FFB3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Forms.Tests", "Forms.Tests\Forms.Tests.csproj", "{43E6D35C-F54B-4CCF-AB43-30680E279F62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Forms.Tests", "Forms.Tests\Forms.Tests.csproj", "{43E6D35C-F54B-4CCF-AB43-30680E279F62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,6 +34,7 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{91CCD1AD-89B8-43D6-8E14-AF3578EC3B75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{91CCD1AD-89B8-43D6-8E14-AF3578EC3B75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91CCD1AD-89B8-43D6-8E14-AF3578EC3B75}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{91CCD1AD-89B8-43D6-8E14-AF3578EC3B75}.Debug|iPhone.ActiveCfg = Debug|Any CPU
 		{91CCD1AD-89B8-43D6-8E14-AF3578EC3B75}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{91CCD1AD-89B8-43D6-8E14-AF3578EC3B75}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
