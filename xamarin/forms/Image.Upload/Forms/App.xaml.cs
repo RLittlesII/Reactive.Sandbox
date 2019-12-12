@@ -27,7 +27,8 @@ namespace Forms
             Locator
                 .Current
                 .GetService<IParameterViewStackService>()
-                .PushPage(new FormsToUploadPageViewModel(new UploadService()), animate: false)
+                .PushPage(new AkavacheExplorerViewModel(new UploadService()), resetStack: true, animate: false)
+                .ObserveOn(RxApp.MainThreadScheduler)
                 .Subscribe();
 
             MainPage = Locator.Current.GetNavigationView("NavigationView");
