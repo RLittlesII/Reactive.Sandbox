@@ -16,11 +16,11 @@ namespace Forms.Services
 
         public void Queue(UploadPayload payload)
         {
-            _queueSubject.OnNext(new UploadEventArgs { Id = payload.Id, State = UploadState.Queued });
+            _queueSubject.OnNext(new UploadEventArgs { Id = payload.Form.Id, State = UploadState.Queued });
             var dequeueObservable = _opQueue.Enqueue(1, async () => await UploadImage(payload)).ToObservable();
 
             var disposable = dequeueObservable
-                .Subscribe(_ => _queueSubject.OnNext(new UploadEventArgs { Id = payload.Id, State = UploadState.Dequeued }));
+                .Subscribe(_ => _queueSubject.OnNext(new UploadEventArgs { Id = payload.Form.Id, State = UploadState.Dequeued }));
         }
 
         public void Queue(IEnumerable<UploadPayload> payloads)
@@ -38,16 +38,16 @@ namespace Forms.Services
         {
             try
             {
-                _queueSubject.OnNext(new UploadEventArgs { Id = payload.Id, State = UploadState.UploadStarted });
+                _queueSubject.OnNext(new UploadEventArgs { Id = payload.Form.Id, State = UploadState.UploadStarted });
 
                 // Send your network call
                 await Task.CompletedTask;
 
-                _queueSubject.OnNext(new UploadEventArgs { Id = payload.Id, State = UploadState.UploadCompleted });
+                _queueSubject.OnNext(new UploadEventArgs { Id = payload.Form.Id, State = UploadState.UploadCompleted });
             }
             catch (Exception e)
             {
-                _queueSubject.OnNext(new UploadEventArgs { Id = payload.Id, State = UploadState.Errored });
+                _queueSubject.OnNext(new UploadEventArgs { Id = payload.Form.Id, State = UploadState.Errored });
                 throw;
             }
         }

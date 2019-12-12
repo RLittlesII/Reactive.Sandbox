@@ -22,10 +22,10 @@ namespace Forms.Explorer
 
             Upload = ReactiveCommand.Create(() => _imageUploadService.Queue(new UploadPayload()));
 
-            _numberOfItemsQueued = this.WhenAnyObservable(x => _imageUploadService.Queued)
-                .Where(x => x.State == UploadState.Queued)
-                .Aggregate(0, (i, args) => i++)
-                .ToProperty(this, x => x.QueuedItems);
+            //_numberOfItemsQueued = this.WhenAnyObservable(x => _imageUploadService.Queued)
+            //    .Where(x => x.State == UploadState.Queued)
+            //    .Aggregate(0, (i, args) => i++)
+            //    .ToProperty(this, x => x.QueuedItems);
         }
 
         public int QueuedItems => _numberOfItemsQueued.Value;
