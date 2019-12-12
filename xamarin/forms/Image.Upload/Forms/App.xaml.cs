@@ -25,7 +25,7 @@ namespace Forms
             Locator
                 .Current
                 .GetService<IParameterViewStackService>()
-                .PushPage(new AkavacheExplorerViewModel(new ImageUploadService()), resetStack: true, animate: false)
+                .PushPage(new AkavacheExplorerViewModel(new UploadService()), resetStack: true, animate: false)
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Subscribe();
 

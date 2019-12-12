@@ -11,6 +11,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="akavache" Version="6.9.10" />
+    <PackageReference Include="akavache.core" Version="6.9.10" />
+    <PackageReference Include="akavache.sqlite3" Version="6.9.10" />
     <PackageReference Include="Punchclock" Version="3.1.1" />
     <PackageReference Include="ReactiveUI.Events.XamForms" Version="10.5.43" />
     <PackageReference Include="ReactiveUI.XamForms" Version="10.5.43" />

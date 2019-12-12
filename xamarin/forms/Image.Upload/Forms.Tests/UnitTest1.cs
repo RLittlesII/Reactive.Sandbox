@@ -1,6 +1,7 @@
 using System;
 using FluentAssertions;
 using Forms.Services;
+using Forms.Types;
 using Xunit;
 
 namespace Forms.Tests
@@ -11,12 +12,12 @@ namespace Forms.Tests
         public void Should_Return_Queued()
         {
             // Given
-            var sut = new ImageUploadService();
+            var sut = new UploadService();
             UploadState state = UploadState.Dequeued;
             sut.Queued.Subscribe(x => state = x.State);
             
             // When
-            sut.Queue(new MyTestPayload { Id = 10 });
+            sut.Queue(new UploadPayload { Id = 10 });
 
             // Then
             state.Should().Be(UploadState.Queued);
