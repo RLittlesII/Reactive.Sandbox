@@ -14,6 +14,10 @@ namespace Forms.Services
         private readonly Subject<UploadEventArgs> _queueSubject = new Subject<UploadEventArgs>();
         private readonly OperationQueue _opQueue = new OperationQueue(2 /*at a time*/);
 
+        public UploadService()
+        {
+
+        }
         public void Queue(UploadPayload payload)
         {
             _queueSubject.OnNext(new UploadEventArgs { Id = payload.Form.Id, State = UploadState.Queued });
