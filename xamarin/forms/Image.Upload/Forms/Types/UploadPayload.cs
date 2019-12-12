@@ -1,6 +1,6 @@
-﻿namespace Forms.Services
+﻿namespace Forms.Types
 {
-    public class MyTestPayload
+    public class UploadPayload
     {
         public int Id { get; set; }
         public string Name { get; set; }

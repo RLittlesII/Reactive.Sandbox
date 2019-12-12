@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Forms.Types;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
 namespace Forms.Services
 {
-    public interface IImageUploadService
+    public interface IUploadService
     {
         // When the user clicks the upload
         // When the internet is available
@@ -21,19 +22,19 @@ namespace Forms.Services
         /// </summary>
         IObservable<UploadEventArgs> Queued { get; }
 
-        MyTestPayload CurrentUpload { get; }
+        UploadPayload CurrentUpload { get; }
 
         /// <summary>
         /// Adds a payload to the queue.
         /// </summary>
         /// <param name="payload"></param>
-        void Queue(MyTestPayload payload);
+        void Queue(UploadPayload payload);
 
         /// <summary>
         /// Adds a payload to the queue.
         /// </summary>
         /// <param name="payload"></param>
-        void Queue(IEnumerable<MyTestPayload> payload);
+        void Queue(IEnumerable<UploadPayload> payload);
 
 
         /// <summary>

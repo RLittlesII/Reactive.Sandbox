@@ -1,4 +1,4 @@
-﻿namespace Forms.Services
+﻿namespace Forms.Types
 {
     public enum UploadState
     {
