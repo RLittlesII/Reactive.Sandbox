@@ -9,14 +9,14 @@ using Sextant;
 
 namespace Forms.Explorer
 {
-    public class AkavacheExplorerViewModel : ReactiveObject, IViewModel
+    public class FormsToUploadPageViewModel : ReactiveObject, IViewModel
     {
         private readonly IUploadService _imageUploadService;
         private ObservableAsPropertyHelper<int> _numberOfItemsQueued;
 
-        public string Id => "Akavache Explorer";
+        public string Id => "FormsToUpload";
 
-        public AkavacheExplorerViewModel(IUploadService imageUploadService)
+        public FormsToUploadPageViewModel(IUploadService imageUploadService)
         {
             _imageUploadService = imageUploadService;
 

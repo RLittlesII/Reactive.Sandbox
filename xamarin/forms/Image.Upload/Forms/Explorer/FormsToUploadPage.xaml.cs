@@ -12,9 +12,9 @@ using Xamarin.Forms.Xaml;
 namespace Forms.Explorer
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AkavacheExplorer : ReactiveContentPage<AkavacheExplorerViewModel>
+    public partial class FormsToUploadPage : ReactiveContentPage<FormsToUploadPageViewModel>
     {
-        public AkavacheExplorer()
+        public FormsToUploadPage()
         {
             InitializeComponent();
 

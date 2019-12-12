@@ -4,8 +4,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:xamForms="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
              xmlns:explorer="clr-namespace:Forms.Explorer;assembly=Forms"
-             x:TypeArguments="explorer:AkavacheExplorerViewModel"
-             x:Class="Forms.Explorer.AkavacheExplorer">
+             x:TypeArguments="explorer:FormsToUploadPageViewModel"
+             x:Class="Forms.Explorer.FormsToUploadPage">
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Hello, world!"

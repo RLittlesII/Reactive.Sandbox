@@ -20,12 +20,12 @@ namespace Forms
 
             Locator
                 .CurrentMutable
-                .RegisterView<AkavacheExplorer, AkavacheExplorerViewModel>();
+                .RegisterView<FormsToUploadPage, FormsToUploadPageViewModel>();
 
             Locator
                 .Current
                 .GetService<IParameterViewStackService>()
-                .PushPage(new AkavacheExplorerViewModel(new UploadService()), resetStack: true, animate: false)
+                .PushPage(new FormsToUploadPageViewModel(new UploadService()), resetStack: true, animate: false)
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Subscribe();
 
