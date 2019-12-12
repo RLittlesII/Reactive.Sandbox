@@ -6,26 +6,27 @@ using Forms.Services;
 using Forms.Types;
 using ReactiveUI;
 using Sextant;
+using Splat;
 
 namespace Forms.Explorer
 {
     public class FormsToUploadPageViewModel : ReactiveObject, IViewModel
     {
-        private readonly IUploadService _imageUploadService;
+        private readonly IUploadService _uploadService;
         private ObservableAsPropertyHelper<int> _numberOfItemsQueued;
 
         public string Id => "FormsToUpload";
 
-        public FormsToUploadPageViewModel(IUploadService imageUploadService)
+        public FormsToUploadPageViewModel(IUploadService uploadService = null)
         {
-            _imageUploadService = imageUploadService;
+            _uploadService = uploadService ?? Locator.Current.GetService<IUploadService>();
 
-            Upload = ReactiveCommand.Create(() => _imageUploadService.Queue(new UploadPayload()));
+            Upload = ReactiveCommand.Create(() => _uploadService.Queue(new UploadPayload()));
 
-            _numberOfItemsQueued = this.WhenAnyObservable(x => _imageUploadService.Queued)
-                .Where(x => x.State == UploadState.Queued)
-                .Aggregate(0, (i, args) => i++)
-                .ToProperty(this, x => x.QueuedItems);
+            //_numberOfItemsQueued = this.WhenAnyObservable(x => _imageUploadService.Queued)
+            //    .Where(x => x.State == UploadState.Queued)
+            //    .Aggregate(0, (i, args) => i++)
+            //    .ToProperty(this, x => x.QueuedItems);
         }
 
         public int QueuedItems => _numberOfItemsQueued.Value;
