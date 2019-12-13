@@ -2,7 +2,7 @@
 
 <xamForms:ContentPageBase xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:xamForms="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
+             xmlns:xamForms="clr-namespace:Forms.Explorer"
              xmlns:explorer="clr-namespace:Forms.Explorer;assembly=Forms"
              x:TypeArguments="explorer:FormsToUploadPageViewModel"
              x:Class="Forms.Explorer.FormsToUploadPage">
