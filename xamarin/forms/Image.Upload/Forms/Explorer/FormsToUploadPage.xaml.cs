@@ -37,7 +37,7 @@ namespace Forms.Explorer
                 this
                     .OneWayBind(ViewModel,
                                 x => x.UploadPayloads,
-                                x => x.UploadsList);
+                                x => x.UploadsList.ItemsSource);
 
                 Queue
                     .Events()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reactive.Linq;
+using Forms.Data;
 using Forms.Explorer;
 using Forms.Services;
 using ReactiveUI;
@@ -19,6 +20,13 @@ namespace Forms
             RxApp.DefaultExceptionHandler = new ExceptionHandler();
 
             Sextant.Sextant.Instance.InitializeForms();
+
+            Locator
+                .CurrentMutable
+                .RegisterLazySingleton(() => new Cache(), typeof(ICache));
+            Locator
+                .CurrentMutable
+                .RegisterLazySingleton(() => new FormsService(), typeof(IFormsService));
 
             Locator
                 .CurrentMutable
