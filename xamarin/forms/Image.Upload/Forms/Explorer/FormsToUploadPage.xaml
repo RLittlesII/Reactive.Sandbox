@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<xamForms:ReactiveContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<xamForms:ContentPageBase xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:xamForms="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
              xmlns:explorer="clr-namespace:Forms.Explorer;assembly=Forms"
@@ -13,6 +13,22 @@
                    HorizontalOptions="CenterAndExpand" />
             <Label x:Name="QueuedCount" />
             <Button x:Name="Queue" />
+            <ListView x:Name="UploadsList"
+                      HasUnevenRows="True"
+                      VerticalOptions="StartAndExpand" 
+                      HorizontalOptions="CenterAndExpand">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="{Binding Id}" />
+                                <Label Text="{Binding Name}" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            
         </StackLayout>
     </ContentPage.Content>
-</xamForms:ReactiveContentPage>
+</xamForms:ContentPageBase>
