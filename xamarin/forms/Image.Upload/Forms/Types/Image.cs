@@ -6,7 +6,8 @@ namespace Forms.Types
 {
     public class Image
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
+        public string FormId { get; set; }
         public string FileLocation { get; set; }
         public DateTime? UploadedDate { get; set; }
     }

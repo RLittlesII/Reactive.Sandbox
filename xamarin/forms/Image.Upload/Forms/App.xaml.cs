@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reactive.Linq;
+using Forms.Data;
 using Forms.Explorer;
 using Forms.Services;
 using ReactiveUI;
@@ -7,6 +8,9 @@ using Sextant;
 using Sextant.XamForms;
 using Splat;
 using Xamarin.Forms;
+using Akavache;
+using System.Linq;
+using System.Reactive;
 
 namespace Forms
 {
@@ -16,9 +20,19 @@ namespace Forms
         {
             InitializeComponent();
 
+            // Make sure you set the application name before doing any inserts or gets
+            Akavache.Registrations.Start("UploadManager");
+
             RxApp.DefaultExceptionHandler = new ExceptionHandler();
 
             Sextant.Sextant.Instance.InitializeForms();
+
+            Locator
+                .CurrentMutable
+                .RegisterLazySingleton(() => new Cache(), typeof(ICache));
+            Locator
+                .CurrentMutable
+                .RegisterLazySingleton(() => new FormsService(), typeof(IFormsService));
 
             Locator
                 .CurrentMutable
@@ -42,6 +56,20 @@ namespace Forms
         protected override void OnSleep()
         {
             // Handle when your app sleeps
+            var caches = new[]
+            {
+                BlobCache.LocalMachine,
+                BlobCache.Secure,
+                BlobCache.UserAccount,
+                BlobCache.InMemory
+            };
+
+            caches.Select(x => x.Flush())
+                  .Merge()
+                  .Select(_ => Unit.Default)
+                  .Wait();
+
+            BlobCache.Shutdown().Wait();
         }
 
         protected override void OnResume()
