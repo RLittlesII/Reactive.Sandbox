@@ -38,6 +38,11 @@ namespace Forms.Explorer
                     .OneWayBind(ViewModel,
                                 x => x.UploadPayloads,
                                 x => x.UploadsList.ItemsSource);
+                AddNewPayload
+                    .Events()
+                    .Clicked
+                    .ObserveOn(RxApp.MainThreadScheduler)
+                    .InvokeCommand(this, x => x.ViewModel.AddUploadPayloadCommand);
 
                 Queue
                     .Events()

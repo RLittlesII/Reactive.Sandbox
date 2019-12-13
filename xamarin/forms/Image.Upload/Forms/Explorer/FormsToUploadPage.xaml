@@ -12,11 +12,13 @@
                    VerticalOptions="CenterAndExpand"
                    HorizontalOptions="CenterAndExpand" />
             <Label x:Name="QueuedCount" />
-            <Button x:Name="Queue" />
+            <Button x:Name="Queue" Text="Start Queue"/>
+            <Button x:Name="AddNewPayload" Text="Add New Payload" />
             <ListView x:Name="UploadsList"
                       HasUnevenRows="True"
                       VerticalOptions="StartAndExpand" 
-                      HorizontalOptions="CenterAndExpand">
+                      HorizontalOptions="CenterAndExpand"
+                      BackgroundColor="CornflowerBlue">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
