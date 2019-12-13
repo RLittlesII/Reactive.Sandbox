@@ -15,7 +15,9 @@ namespace Forms
         public App()
         {
             InitializeComponent();
-            
+
+            RxApp.DefaultExceptionHandler = new ExceptionHandler();
+
             Sextant.Sextant.Instance.InitializeForms();
 
             Locator
@@ -25,11 +27,10 @@ namespace Forms
             Locator
                 .Current
                 .GetService<IParameterViewStackService>()
-                .PushPage(new FormsToUploadPageViewModel(new UploadService()), resetStack: true, animate: false)
-                .ObserveOn(RxApp.MainThreadScheduler)
+                .PushPage(new FormsToUploadPageViewModel(new UploadService()), animate: false)
                 .Subscribe();
 
-            MainPage = Locator.Current.GetNavigationView();
+            MainPage = Locator.Current.GetNavigationView("NavigationView");
         }
 
         protected override void OnStart()
@@ -45,6 +46,21 @@ namespace Forms
         protected override void OnResume()
         {
             // Handle when your app resumes
+        }
+    }
+    
+    public class ExceptionHandler : IObserver<Exception>
+    {
+        public void OnCompleted()
+        {
+        }
+
+        public void OnError(Exception error)
+        {
+        }
+
+        public void OnNext(Exception value)
+        {
         }
     }
 }
