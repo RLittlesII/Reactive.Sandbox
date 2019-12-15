@@ -31,13 +31,13 @@ namespace Forms.Explorer
                 .DisposeWith(disposables);
 
                 this.OneWayBind(ViewModel,
-                                x => x.QueuedItems,
-                                x => x.QueuedCount.Text);
+                                vm => vm.QueuedItems,
+                                v => v.QueuedCount.Text);
 
                 this
                     .OneWayBind(ViewModel,
-                                x => x.UploadPayloads,
-                                x => x.UploadsList.ItemsSource);
+                                vm => vm.UploadPayloads,
+                                v => v.UploadsList.ItemsSource);
                 AddNewPayload
                     .Events()
                     .Clicked
@@ -56,11 +56,18 @@ namespace Forms.Explorer
                     .ObserveOn(RxApp.MainThreadScheduler)
                     .InvokeCommand(this, x => x.ViewModel.InvalidatePayloadsCommand);
 
-                RefreshList
-                    .Events()
-                    .Clicked
-                    .ObserveOn(RxApp.MainThreadScheduler)
-                    .InvokeCommand(this, x => x.ViewModel.RefreshListCommand);
+                this
+                    .BindCommand(ViewModel,
+                                vm => vm.RefreshListCommand,
+                                v => v.RefreshListTap)
+                    .DisposeWith(disposables);
+
+
+                //RefreshList
+                //    .Events()
+                //    .Clicked
+                //    .ObserveOn(RxApp.MainThreadScheduler)
+                //    .InvokeCommand(this, x => x.ViewModel.RefreshListCommand);
 
                 this.WhenAnyObservable(x => x.ViewModel.QueueUpload.IsExecuting).Subscribe(_ => { });
             });

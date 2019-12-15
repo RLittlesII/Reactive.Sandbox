@@ -23,7 +23,21 @@ namespace Forms.Explorer
         private readonly IFormsService _formsService;
         private readonly ILogs _logs;
         private ObservableAsPropertyHelper<int> _numberOfItemsQueued;
-        [Reactive]public List<UploadPayload> UploadPayloads { get; set; }
+        //[Reactive]public List<UploadPayload> UploadPayloads { get; set; }
+        private List<UploadPayload> _uploadPayloads;
+        public List<UploadPayload> UploadPayloads 
+        {
+            get
+            {
+                return _uploadPayloads;
+            }
+            set
+            {
+                if (value.Equals(_uploadPayloads)) return;
+                _uploadPayloads = value;
+                this.RaisePropertyChanged("UploadPayloads");
+            }
+        }
         public string Id => "FormsToUpload";
         public FormsToUploadPageViewModel(IUploadService uploadService = null,
                                           IFormsService formsService = null,
@@ -42,14 +56,6 @@ namespace Forms.Explorer
                 var payloads = await _formsService.GetPayloads();
                 return payloads;
             });
-
-            LoadCommand
-                .ThrownExceptions
-                .ObserveOn(RxApp.MainThreadScheduler)
-                .Subscribe(x =>
-                {
-                    _logs.Log(x);
-                });
 
             AddUploadPayloadCommand = ReactiveCommand.CreateFromTask<EventArgs, UploadPayload>(async x =>
             {
@@ -72,10 +78,45 @@ namespace Forms.Explorer
 
             RefreshListCommand
                 .Select(x => x)
+                //.ObserveOn(RxApp.MainThreadScheduler)
+                .SubscribeOn(RxApp.MainThreadScheduler)
                 .Subscribe(x =>
                 {
                     UploadPayloads = x.ToList();
                 });
+
+            LoadCommand
+                .ThrownExceptions
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Subscribe(x =>
+                {
+                    _logs.Log(x);
+                });
+
+            AddUploadPayloadCommand
+                .ThrownExceptions
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Subscribe(x =>
+                {
+                    _logs.Log(x);
+                });
+
+            InvalidatePayloadsCommand
+                .ThrownExceptions
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Subscribe(x =>
+                {
+                    _logs.Log(x);
+                });
+
+            RefreshListCommand
+                .ThrownExceptions
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Subscribe(x =>
+                {
+                    _logs.Log(x);
+                });
+
             //_numberOfItemsQueued = this.WhenAnyObservable(x => _imageUploadService.Queued)
             //    .Where(x => x.State == UploadState.Queued)
             //    .Aggregate(0, (i, args) => i++)

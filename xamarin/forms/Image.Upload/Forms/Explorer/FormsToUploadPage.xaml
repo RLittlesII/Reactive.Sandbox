@@ -8,7 +8,7 @@
              x:Class="Forms.Explorer.FormsToUploadPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Hello, world!"
+            <Label Text="Uploads Manager"
                    VerticalOptions="CenterAndExpand"
                    HorizontalOptions="CenterAndExpand" />
             <Label x:Name="QueuedCount" />
@@ -16,6 +16,11 @@
             <Button x:Name="AddNewPayload" Text="Add New Payload" />
             <Button x:Name="InvalidatePayloads" Text="Delete Cache" />
             <Button x:Name="RefreshList" Text="Refresh List" />
+            <Label Text="Refresh List" >
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer x:Name="RefreshListTap" />
+                </Label.GestureRecognizers>
+            </Label>
             <ListView x:Name="UploadsList"
                       HasUnevenRows="True"
                       VerticalOptions="StartAndExpand" 
@@ -24,7 +29,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout>
+                            <StackLayout Orientation="Horizontal" BackgroundColor="Bisque">
                                 <Label Text="{Binding Id}" />
                                 <Label Text="{Binding Name}" />
                             </StackLayout>
