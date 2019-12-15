@@ -6,7 +6,7 @@ namespace Forms.Types
 {
     public class Form
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string FormName { get; set; }
         public DateTime? UploadedDate { get; set; }
     }

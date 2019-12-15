@@ -14,6 +14,8 @@
             <Label x:Name="QueuedCount" />
             <Button x:Name="Queue" Text="Start Queue"/>
             <Button x:Name="AddNewPayload" Text="Add New Payload" />
+            <Button x:Name="InvalidatePayloads" Text="Delete Cache" />
+            <Button x:Name="RefreshList" Text="Refresh List" />
             <ListView x:Name="UploadsList"
                       HasUnevenRows="True"
                       VerticalOptions="StartAndExpand" 
@@ -30,7 +32,6 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            
         </StackLayout>
     </ContentPage.Content>
 </xamForms:ContentPageBase>

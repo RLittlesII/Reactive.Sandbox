@@ -23,7 +23,7 @@ namespace Forms.Explorer
         private readonly IFormsService _formsService;
         private readonly ILogs _logs;
         private ObservableAsPropertyHelper<int> _numberOfItemsQueued;
-        [Reactive]public IEnumerable<UploadPayload> UploadPayloads { get; set; }
+        [Reactive]public List<UploadPayload> UploadPayloads { get; set; }
         public string Id => "FormsToUpload";
         public FormsToUploadPageViewModel(IUploadService uploadService = null,
                                           IFormsService formsService = null,
@@ -54,17 +54,28 @@ namespace Forms.Explorer
             AddUploadPayloadCommand = ReactiveCommand.CreateFromTask<EventArgs, UploadPayload>(async x =>
             {
                 var payload = await CreatePayload();
+                await _formsService.InsertPayload(payload);
                 return payload;
             });
 
-            AddUploadPayloadCommand
+            InvalidatePayloadsCommand = ReactiveCommand.CreateFromTask<EventArgs, Unit>(async x =>
+            {
+                await _formsService.InvalidateAllPayloads();
+                return Unit.Default;
+            });
+
+            RefreshListCommand = ReactiveCommand.CreateFromTask<EventArgs, IEnumerable<UploadPayload>>(async x =>
+            {
+                var payloads = await _formsService.GetPayloads();
+                return payloads;
+            });
+
+            RefreshListCommand
+                .Select(x => x)
                 .Subscribe(x =>
                 {
-                    var payloads = UploadPayloads.ToList();
-                    payloads.Add(x);
-                    UploadPayloads = payloads;
+                    UploadPayloads = x.ToList();
                 });
-
             //_numberOfItemsQueued = this.WhenAnyObservable(x => _imageUploadService.Queued)
             //    .Where(x => x.State == UploadState.Queued)
             //    .Aggregate(0, (i, args) => i++)
@@ -76,30 +87,27 @@ namespace Forms.Explorer
 
             var form = new Form()
             {
-                Id = generator.RandomNumber(0, 9999),
+                Id = generator.RandomId(3, 3),
                 FormName = generator.RandomString(4, true)
             };
 
             var images = new List<Image>();
-            var image1 = new Image()
+
+            for (var i = 0; i < generator.RandomNumber(1, 5); i++)
             {
-                Id = 1,
-                FileLocation = generator.RandomString(6, true),
-                FormId = form.Id
-            };
-            var image2 = new Image()
-            {
-                Id = 2,
-                FileLocation = generator.RandomString(6, true),
-                FormId = form.Id
-            };
-            images.Add(image1);
-            images.Add(image2);
+                var image = new Image()
+                {
+                    Id = generator.RandomId(3, 3),
+                    FileLocation = generator.RandomString(6, true),
+                    FormId = form.Id
+                };
+                images.Add(image);
+            }
 
             var payload = new UploadPayload()
             {
                 Form = form,
-                Id = generator.RandomNumber(0, 9999),
+                Id = generator.RandomId(3, 3),
                 Images = images
             };
             return payload;
@@ -110,9 +118,16 @@ namespace Forms.Explorer
         public ReactiveCommand<Unit, Unit> QueueUpload { get; set; }
         public ReactiveCommand<Unit, IEnumerable<UploadPayload>> LoadCommand { get; set; }
         public ReactiveCommand<EventArgs, UploadPayload> AddUploadPayloadCommand { get; set; }
+        public ReactiveCommand<EventArgs, Unit> InvalidatePayloadsCommand { get; set; }
+        public ReactiveCommand<EventArgs, IEnumerable<UploadPayload>> RefreshListCommand { get; set; }
     }
     public class RandomGenerator
     {
+        // Generate Id
+        public string RandomId(int num, int chars)
+        {
+            return $"{RandomNumber(0, 999)}{RandomString(3, true)}";
+        }
         // Generate a random number between two numbers    
         public int RandomNumber(int min, int max)
         {

@@ -8,6 +8,9 @@ using Sextant;
 using Sextant.XamForms;
 using Splat;
 using Xamarin.Forms;
+using Akavache;
+using System.Linq;
+using System.Reactive;
 
 namespace Forms
 {
@@ -16,6 +19,9 @@ namespace Forms
         public App()
         {
             InitializeComponent();
+
+            // Make sure you set the application name before doing any inserts or gets
+            Akavache.Registrations.Start("UploadManager");
 
             RxApp.DefaultExceptionHandler = new ExceptionHandler();
 
@@ -49,6 +55,20 @@ namespace Forms
         protected override void OnSleep()
         {
             // Handle when your app sleeps
+            var caches = new[]
+            {
+                BlobCache.LocalMachine,
+                BlobCache.Secure,
+                BlobCache.UserAccount,
+                BlobCache.InMemory
+            };
+
+            caches.Select(x => x.Flush())
+                  .Merge()
+                  .Select(_ => Unit.Default)
+                  .Wait();
+
+            BlobCache.Shutdown().Wait();
         }
 
         protected override void OnResume()

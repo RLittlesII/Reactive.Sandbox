@@ -18,7 +18,7 @@ namespace Forms.Data
             _log = log ?? Locator.Current.GetService<ILogs>();
 
             // Make sure you set the application name before doing any inserts or gets
-            Akavache.Registrations.Start("UploadManager");
+            //Akavache.Registrations.Start("UploadManager");
         }
 
         public async Task Cleanup()

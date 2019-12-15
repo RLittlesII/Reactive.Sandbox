@@ -50,6 +50,18 @@ namespace Forms.Explorer
                     .ObserveOn(RxApp.MainThreadScheduler)
                     .InvokeCommand(this, x => x.ViewModel.QueueUpload);
 
+                InvalidatePayloads
+                    .Events()
+                    .Clicked
+                    .ObserveOn(RxApp.MainThreadScheduler)
+                    .InvokeCommand(this, x => x.ViewModel.InvalidatePayloadsCommand);
+
+                RefreshList
+                    .Events()
+                    .Clicked
+                    .ObserveOn(RxApp.MainThreadScheduler)
+                    .InvokeCommand(this, x => x.ViewModel.RefreshListCommand);
+
                 this.WhenAnyObservable(x => x.ViewModel.QueueUpload.IsExecuting).Subscribe(_ => { });
             });
         }
