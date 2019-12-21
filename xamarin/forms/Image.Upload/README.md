@@ -100,3 +100,10 @@ public class AkavacheExplorerViewModel : ViewModelBase
         }
     }
 ```
+
+### Max Concurrent Queue
+
+- Concurrent Queue
+    - Enqueue: Puts the item on the concurrent queue
+    - Dequeued: An observable of items removed from the concurrent queue
+    

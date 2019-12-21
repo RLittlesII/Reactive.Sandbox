@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
 using Forms.Types;
 using Punchclock;
+using ReactiveUI;
 
 namespace Forms.Services
 {
@@ -20,11 +22,21 @@ namespace Forms.Services
         }
         public void Queue(UploadPayload payload)
         {
-            _queueSubject.OnNext(new UploadEventArgs { Id = payload.Form.Id, State = UploadState.Queued });
-            var dequeueObservable = _opQueue.Enqueue(1, async () => await UploadImage(payload)).ToObservable();
+            try
+            {
+                _queueSubject.OnNext(new UploadEventArgs { Id = payload.Form.Id, State = UploadState.Queued });
+                var dequeueTask = _opQueue.Enqueue(1, async () => await UploadImage(payload));
 
-            var disposable = dequeueObservable
-                .Subscribe(_ => _queueSubject.OnNext(new UploadEventArgs { Id = payload.Form.Id, State = UploadState.Dequeued }));
+                Task.WaitAll(dequeueTask);
+
+                var dequeueObservable = dequeueTask.ToObservable()
+                    .Subscribe(_ => _queueSubject.OnNext(new UploadEventArgs { Id = payload.Form.Id, State = UploadState.Dequeued }));
+            }
+            catch (Exception exception)
+            {
+                _queueSubject.OnNext(new UploadEventArgs { Id = payload.Form.Id, State = UploadState.Errored });
+                throw;
+            }
         }
 
         public void Queue(IEnumerable<UploadPayload> payloads)
@@ -32,7 +44,10 @@ namespace Forms.Services
 
         }
 
-        public IObservable<bool> ToggleService() => Observable.Return(true);
+        public IObservable<Unit> Resume() =>
+            Observable.Return(Unit.Default).Do(_ => _opQueue.ShutdownQueue()); // TODO: Figure out how to pause and resume the queue
+
+        public IObservable<Unit> Pause() => Observable.Return(Unit.Default).Do(_ => _opQueue.PauseQueue());
 
         public IObservable<UploadEventArgs> Queued => _queueSubject.AsObservable();
 
