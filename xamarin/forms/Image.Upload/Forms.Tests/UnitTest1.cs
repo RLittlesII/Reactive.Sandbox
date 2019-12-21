@@ -17,7 +17,7 @@ namespace Forms.Tests
             sut.Queued.Subscribe(x => state = x.State);
             
             // When
-            sut.Queue(new UploadPayload { Id = 10 });
+            sut.Queue(new UploadPayload { Id = "10" });
 
             // Then
             state.Should().Be(UploadState.Queued);

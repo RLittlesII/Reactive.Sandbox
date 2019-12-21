@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reactive;
 
 namespace Forms.Services
 {
@@ -36,11 +37,16 @@ namespace Forms.Services
         /// <param name="payload"></param>
         void Queue(IEnumerable<UploadPayload> payload);
 
-
         /// <summary>
-        /// Toggles the service on/off.
+        /// Pauses the queue.
         /// </summary>
         /// <returns></returns>
-        IObservable<bool> ToggleService();
+        IObservable<Unit> Resume();
+        
+        /// <summary>
+        /// Pauses the queue.
+        /// </summary>
+        /// <returns></returns>
+        IObservable<Unit> Pause();
     }
 }

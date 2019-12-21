@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
 using Forms.Types;
 using Punchclock;
+using ReactiveUI;
 
 namespace Forms.Services
 {
@@ -32,7 +34,10 @@ namespace Forms.Services
 
         }
 
-        public IObservable<bool> ToggleService() => Observable.Return(true);
+        public IObservable<Unit> Resume() =>
+            Observable.Return(Unit.Default).Do(_ => _opQueue.ShutdownQueue()); // TODO: Figure out how to pause and resume the queue
+
+        public IObservable<Unit> Pause() => Observable.Return(Unit.Default).Do(_ => _opQueue.PauseQueue());
 
         public IObservable<UploadEventArgs> Queued => _queueSubject.AsObservable();
 
