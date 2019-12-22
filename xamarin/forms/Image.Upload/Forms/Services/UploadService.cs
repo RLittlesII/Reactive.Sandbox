@@ -22,11 +22,19 @@ namespace Forms.Services
         }
         public void Queue(UploadPayload payload)
         {
-            _queueSubject.OnNext(new UploadEventArgs { Id = payload.Form.Id, State = UploadState.Queued });
-            var dequeueObservable = _opQueue.Enqueue(1, async () => await UploadImage(payload)).ToObservable();
+            try
+            {
+                _queueSubject.OnNext(new UploadEventArgs { Id = payload.Form.Id, State = UploadState.Queued });
+                var dequeueObservable = _opQueue.Enqueue(1, async () => await UploadImage(payload)).ToObservable();
 
-            var disposable = dequeueObservable
-                .Subscribe(_ => _queueSubject.OnNext(new UploadEventArgs { Id = payload.Form.Id, State = UploadState.Dequeued }));
+                dequeueObservable
+                    .Subscribe(_ => _queueSubject.OnNext(new UploadEventArgs { Id = payload.Form.Id, State = UploadState.Dequeued }));
+            }
+            catch (Exception exception)
+            {
+                _queueSubject.OnNext(new UploadEventArgs { Id = payload.Form.Id, State = UploadState.Errored });
+                throw;
+            }
         }
 
         public void Queue(IEnumerable<UploadPayload> payloads)
