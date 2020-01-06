@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<forms:ContentPageBase x:TypeArguments="forms:OneViewModel" xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:forms="clr-namespace:Forms;assembly=Forms"
+                       x:Class="Forms.One">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="One Fish!"
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="CenterAndExpand" />
+            <Button x:Name="Navigate" Text="Two Fish" />
+        </StackLayout>
+    </ContentPage.Content>
+</forms:ContentPageBase>
