@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<rxui:ReactiveContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:rxui="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
+    xmlns:local="clr-namespace:Mobile.Main"
+    x:Class="Mobile.Main.MainPage"
+    x:TypeArguments="local:MainViewModel">
+    
+    <ContentPage.Content>
+        <ListView x:Name="items" Margin="20, 20, 20, 10" SelectionMode="None" SeparatorVisibility="None">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <local:MenuItem />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+    
+</rxui:ReactiveContentPage>

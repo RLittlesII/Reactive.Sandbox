@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<rxui:ReactiveContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:rxui="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
+    xmlns:local="clr-namespace:Mobile"
+    xmlns:viewModels="clr-namespace:Shared.Configuration;assembly=Shared"
+    x:Class="Mobile.Configuration.ItemPage"
+    x:TypeArguments="viewModels:ItemViewModel">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="save" Order="Primary" Text="save" />
+        <ToolbarItem x:Name="delete" Order="Secondary" Text="delete" />
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <Label x:Name="id" />
+            <Label x:Name="name" />
+        </StackLayout>
+    </ContentPage.Content>
+
+</rxui:ReactiveContentPage>

@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Shared</RootNamespace>
+    <Version>1.0.4</Version>
+    <Authors>InfoQ Ltd.</Authors>
+    <Product>Marstat</Product>
+    <Copyright>Copyright © InfoQ 2019</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Configuration\ve-18FF.tmp" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="reactiveui" Version="11.0.1" />
+  </ItemGroup>
+
+</Project>
