@@ -124,11 +124,15 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="4.1.0.778454" />
+    <PackageReference Include="Xamarin.Forms" Version="4.3.0.991250" />
     <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\reactiveui\ReactiveUI\src\ReactiveUI\ReactiveUI.csproj">
+      <Project>{ac3c3b2c-7af2-40bc-b67f-411d850064ed}</Project>
+      <Name>ReactiveUI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Forms\Forms.csproj">
       <Project>{C813E55C-CB12-4E44-A564-A6D29A769AB8}</Project>
       <Name>Forms</Name>
