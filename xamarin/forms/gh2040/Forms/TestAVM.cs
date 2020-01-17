@@ -13,19 +13,14 @@ namespace Forms
         public TestAVM(IScreen hostScreen)
         {
             HostScreen = hostScreen;
-            //
+
             TestBVM testBVM = new TestBVM(HostScreen);
-            //
-            ClickCommand = ReactiveCommand.CreateFromObservable(() =>
-            {
-                HostScreen.Router.Navigate.Execute(testBVM).Select(_ => Unit.Default).Subscribe();
-                return Observable.Return(Unit.Default);
-            });
-            //
+
             testBVM
                 .WhenNavigatingFromObservable()
-                .ObserveOn(RxApp.MainThreadScheduler)
-                .Subscribe((_) => { ShowActivityIndicator = true; });
+                .Subscribe(_ => { ShowActivityIndicator = true; });
+
+            ClickCommand = ReactiveCommand.CreateFromObservable(() => HostScreen.Router.Navigate.Execute(testBVM).Select(_ => Unit.Default));
         }
 
         //
