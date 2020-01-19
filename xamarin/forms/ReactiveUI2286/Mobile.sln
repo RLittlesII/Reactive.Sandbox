@@ -9,6 +9,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mobile", "Mobile\Mobile.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarstatMobile.Android", "Mobile.Android\MarstatMobile.Android.csproj", "{CBD3973C-6926-4126-BA7D-54AF8F086FBD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactiveUI", "..\..\..\..\..\reactiveui\ReactiveUI\src\ReactiveUI\ReactiveUI.csproj", "{7762E675-A373-4B0F-8E12-D8D6CAF545AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactiveUI.XamForms", "..\..\..\..\..\reactiveui\ReactiveUI\src\ReactiveUI.XamForms\ReactiveUI.XamForms.csproj", "{6C9A729F-ACBF-4405-A906-501345DEABEB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "external", "external", "{1D2D0192-406F-4917-852C-C4F4EC93514B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Routing.Tests", "Routing.Tests\Routing.Tests.csproj", "{812F0D7A-8BAB-49A1-BC13-B03076AD71D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,11 +37,27 @@ Global
 		{CBD3973C-6926-4126-BA7D-54AF8F086FBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBD3973C-6926-4126-BA7D-54AF8F086FBD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CBD3973C-6926-4126-BA7D-54AF8F086FBD}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{7762E675-A373-4B0F-8E12-D8D6CAF545AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7762E675-A373-4B0F-8E12-D8D6CAF545AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7762E675-A373-4B0F-8E12-D8D6CAF545AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7762E675-A373-4B0F-8E12-D8D6CAF545AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C9A729F-ACBF-4405-A906-501345DEABEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C9A729F-ACBF-4405-A906-501345DEABEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C9A729F-ACBF-4405-A906-501345DEABEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C9A729F-ACBF-4405-A906-501345DEABEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{812F0D7A-8BAB-49A1-BC13-B03076AD71D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{812F0D7A-8BAB-49A1-BC13-B03076AD71D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{812F0D7A-8BAB-49A1-BC13-B03076AD71D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{812F0D7A-8BAB-49A1-BC13-B03076AD71D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9306C198-BD71-4FE6-AF01-251A16FE1409}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7762E675-A373-4B0F-8E12-D8D6CAF545AF} = {1D2D0192-406F-4917-852C-C4F4EC93514B}
+		{6C9A729F-ACBF-4405-A906-501345DEABEB} = {1D2D0192-406F-4917-852C-C4F4EC93514B}
 	EndGlobalSection
 EndGlobal

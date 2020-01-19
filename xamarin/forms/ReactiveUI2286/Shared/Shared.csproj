@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="reactiveui" Version="11.0.1" />
+    <ProjectReference Include="..\..\..\..\..\..\reactiveui\ReactiveUI\src\ReactiveUI\ReactiveUI.csproj" />
   </ItemGroup>
 
 </Project>

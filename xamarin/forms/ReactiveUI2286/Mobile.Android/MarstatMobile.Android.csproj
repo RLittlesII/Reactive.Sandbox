@@ -60,15 +60,6 @@
     <PackageReference Include="QRCoder">
       <Version>1.3.6</Version>
     </PackageReference>
-    <PackageReference Include="ReactiveUI.Events.XamForms">
-      <Version>11.0.1</Version>
-    </PackageReference>
-    <PackageReference Include="ReactiveUI.Fody">
-      <Version>11.0.1</Version>
-    </PackageReference>
-    <PackageReference Include="ReactiveUI.XamForms">
-      <Version>11.0.1</Version>
-    </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="4.4.0.991265" />
     <PackageReference Include="Xamarin.Android.Support.Core.Utils" Version="28.0.0.3" />
     <PackageReference Include="Xamarin.Essentials" Version="1.3.1" />
@@ -109,6 +100,10 @@
     <Folder Include="Resources\drawable\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\reactiveui\ReactiveUI\src\ReactiveUI\ReactiveUI.csproj">
+      <Project>{7762e675-a373-4b0f-8e12-d8d6caf545af}</Project>
+      <Name>ReactiveUI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mobile\Mobile.csproj">
       <Project>{629c1048-0bd2-4f47-875d-57fcdf4a8334}</Project>
       <Name>Mobile</Name>
