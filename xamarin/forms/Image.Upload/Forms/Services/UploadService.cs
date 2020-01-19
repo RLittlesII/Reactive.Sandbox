@@ -25,9 +25,11 @@ namespace Forms.Services
             try
             {
                 _queueSubject.OnNext(new UploadEventArgs { Id = payload.Form.Id, State = UploadState.Queued });
-                var dequeueObservable = _opQueue.Enqueue(1, async () => await UploadImage(payload)).ToObservable();
+                var dequeueTask = _opQueue.Enqueue(1, async () => await UploadImage(payload));
 
-                dequeueObservable
+                Task.WaitAll(dequeueTask);
+
+                var dequeueObservable = dequeueTask.ToObservable()
                     .Subscribe(_ => _queueSubject.OnNext(new UploadEventArgs { Id = payload.Form.Id, State = UploadState.Dequeued }));
             }
             catch (Exception exception)
