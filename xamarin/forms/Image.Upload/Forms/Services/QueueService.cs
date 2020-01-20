@@ -20,9 +20,11 @@ namespace Forms.Services
 
         public QueueService(int maxConcurrentProcesses = 3)
         {
+//            _worker = new Subject<IObservable<DateTimeOffset>>();
             _worker
                 .Publish()
                 .RefCount()
+                .Where(x => x != null)
                 .CombineLatest(_pause, (observable, pause) => (observable, pause)) // combine the latest notification of the operation and the worker state.
                 .SelectMany(Process) // Expand the operations
                 .Merge(maxConcurrentProcesses) // Merge the operations, and only allow three to be processed at a time
