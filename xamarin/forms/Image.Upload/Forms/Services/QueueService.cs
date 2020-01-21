@@ -21,15 +21,53 @@ namespace Forms.Services
 
         public QueueService(int maxConcurrentProcesses = 3)
         {
-            _worker
-                .Publish()
-                .RefCount()
-                .CombineLatest(_pause, (observable, pause) => (observable, pause)) // combine the latest notification of the operation and the worker state.
-                .Where(x => x.observable != null)
-                .SelectMany(Process) // Expand the operations
-                .Merge(maxConcurrentProcesses) // Merge the operations, and only allow three to be processed at a time
-                .Subscribe()
-                .DisposeWith(_disposables);
+            var w = _worker.Publish();
+            w.Connect().DisposeWith(_disposables);
+
+            var pause = _pause.Where(z => z == true).ToSignal();
+            var unpause = _pause.Where(z => z == false).ToSignal();
+            
+            Observable
+                .Merge(
+                    pause
+                        .Select(_ => {
+                            return w.Scan(new List<IObservable<Unit>>(), (acc, value) =>
+                            {
+                                acc.Add(value);
+                                return acc;
+                            })
+                            .TakeUntil(unpause)
+                            .TakeLast(1)
+                            .SelectMany(z => z);
+                        }),
+                    unpause
+                        .Select(_ => w.TakeUntil(pause))                )
+                    .Merge(maxConcurrentProcesses) // Merge the operations, and only allow three to be processed at a time
+                    .Subscribe()
+                    .DisposeWith(_disposables);
+
+
+            // _pause
+            //     .Select(p =>
+            //     {
+            //         if (p)
+            //         {
+            //             return w.Buffer(() => _pause.Where(z => !z)).SelectMany(z => z.ToObservable());
+            //         }
+            //         return w.TakeUntil(_pause.Where(z => z));
+            //     })
+            //     .Merge(maxConcurrentProcesses) // Merge the operations, and only allow three to be processed at a time
+            //     .Subscribe()
+            //     .DisposeWith(_disposables);
+
+
+            // w
+            //     .CombineLatest(_pause, (observable, pause) => (observable, pause)) // combine the latest notification of the operation and the worker state.
+            //     .Where(x => x.observable != null)
+            //     .SelectMany(Process) // Expand the operations
+            //     .Merge(maxConcurrentProcesses) // Merge the operations, and only allow three to be processed at a time
+            //     .Subscribe()
+            //     .DisposeWith(_disposables);
         }
 
         public IObservable<T> Enqueue<T>(IObservable<T> request)
@@ -45,7 +83,7 @@ namespace Forms.Services
                                 .Do(observer) // Notify the observer
                                 .Materialize() // Get the observable of notifications
                                 .Where(notification => notification.Kind == NotificationKind.OnCompleted) // Get the completion notification
-                                .Select(x => Unit.Default));
+                                .ToSignal());
 
                         return Disposable.Empty;
                     });
@@ -94,8 +132,11 @@ namespace Forms.Services
             return Observable.Return(observable);
         }
 
-        private bool disposedValue = false; // To detect redundant calls
-
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+    
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
@@ -109,9 +150,6 @@ namespace Forms.Services
             }
         }
 
-        public void Dispose()
-        {
-            Dispose(true);
-        }
+        private bool disposedValue = false; // To detect redundant calls
     }
 }
