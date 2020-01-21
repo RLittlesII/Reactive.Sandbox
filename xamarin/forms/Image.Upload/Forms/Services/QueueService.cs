@@ -12,40 +12,43 @@ using System.Threading.Tasks;
 
 namespace Forms.Services
 {
-    public class QueueService
+    public class QueueService : IDisposable
     {
-        Subject<IObservable<DateTimeOffset>> _worker = new Subject<IObservable<DateTimeOffset>>();
-        List<IObservable<DateTimeOffset>> _buffer = new List<IObservable<DateTimeOffset>>();
+        Subject<IObservable<Unit>> _worker = new Subject<IObservable<Unit>>();
+        List<IObservable<Unit>> _buffer = new List<IObservable<Unit>>();
         BehaviorSubject<bool> _pause = new BehaviorSubject<bool>(false);
+        CompositeDisposable _disposables = new CompositeDisposable();
 
         public QueueService(int maxConcurrentProcesses = 3)
         {
-//            _worker = new Subject<IObservable<DateTimeOffset>>();
             _worker
                 .Publish()
                 .RefCount()
-                .Where(x => x != null)
                 .CombineLatest(_pause, (observable, pause) => (observable, pause)) // combine the latest notification of the operation and the worker state.
+                .Where(x => x.observable != null)
                 .SelectMany(Process) // Expand the operations
                 .Merge(maxConcurrentProcesses) // Merge the operations, and only allow three to be processed at a time
-                .Subscribe();
+                .Subscribe()
+                .DisposeWith(_disposables);
         }
 
         public IObservable<T> Enqueue<T>(IObservable<T> request)
         {
             // Create an observable that tracks the completion of a request.
-            var observable = Observable.Create<T>(observer =>
-            {
-                // When the request completes tick the worker to pick up the next request
-                _worker
-                    .OnNext(request
-                        .Do(observer) // Get the observer
-                        .Materialize() // Get the observable of notifications
-                        .Where(notification => notification.Kind == NotificationKind.OnCompleted) // Get the completion notification
-                        .Select(x => DateTimeOffset.Now));
+            var observable =
+                Observable
+                    .Create<T>(observer =>
+                    {
+                        // When the request completes tick the worker to pick up the next request
+                        _worker
+                            .OnNext(request
+                                .Do(observer) // Notify the observer
+                                .Materialize() // Get the observable of notifications
+                                .Where(notification => notification.Kind == NotificationKind.OnCompleted) // Get the completion notification
+                                .Select(x => Unit.Default));
 
-                return Disposable.Empty;
-            });
+                        return Disposable.Empty;
+                    });
 
             return observable.Publish().RefCount();  // Return an observable that will only fire subscription once.
         }
@@ -68,14 +71,14 @@ namespace Forms.Services
             return Observable.Return(false);
         }
 
-        private IObservable<IObservable<DateTimeOffset>> Process((IObservable<DateTimeOffset> observable, bool pause) _)
+        private IObservable<IObservable<Unit>> Process((IObservable<Unit> observable, bool pause) _)
         {
-            var (observable, pause ) = _;
+            var (observable, pause) = _;
             if (pause)
             {
                 // If the queue is paused add the items to the buffer and return.
                 _buffer.Add(observable);
-                return Observable.Empty<IObservable<DateTimeOffset>>();
+                return Observable.Empty<IObservable<Unit>>();
             }
 
             if (_buffer.Any())
@@ -89,6 +92,26 @@ namespace Forms.Services
             }
 
             return Observable.Return(observable);
+        }
+
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    _disposables.Dispose();
+                }
+
+                disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
         }
     }
 }

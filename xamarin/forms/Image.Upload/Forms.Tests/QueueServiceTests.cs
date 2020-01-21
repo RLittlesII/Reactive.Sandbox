@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Forms.Services;
@@ -10,24 +11,8 @@ namespace Forms.Tests
 {
     public class QueueServiceTests
     {
-        Task<T> Function<T>()
-        {
-            Task.Delay(TimeSpan.MaxValue);
-            return Task.FromResult(default(T));
-        }
-
         [Fact]
-        public void Should()
-        {
-            // Given
-            var queue = new QueueService();
-
-            // When
-            var result = queue.EnqueueTask<int>(Function<int>);
-        }
-
-        [Fact]
-        public async void ShouldDoSomething()
+        public async Task ShouldDoSomething()
         {
             var queue = new QueueService(2);
             var myList = new List<int>
@@ -63,7 +48,7 @@ namespace Forms.Tests
         }
 
         [Fact]
-        public async void ShouldDoSomethingAsync()
+        public async Task ShouldDoSomethingAsync()
         {
             var queue = new QueueService();
             var myList = new List<int>();
@@ -73,21 +58,39 @@ namespace Forms.Tests
             myList.Add(1000);
             myList.Add(5000);
             myList.Add(1000);
+
+            var observables = new List<IObservable<bool>>();
             foreach (var value in myList)
             {
-                var observable = Observable.Create<bool>(_ =>
-                {
-                    return Observable.FromAsync(async () => await MyWaitMethod(value)).Subscribe();
-                });
-                queue
-                    .Enqueue(observable)
-                    .Subscribe(_ => Debug.WriteLine($"Result of task: {_}"));
+                observables.Add(queue.Enqueue(Observable.FromAsync(async () => await MyWaitMethod(value)).Do(_ => Debug.WriteLine($"Result of task: {_}"))));
             }
+
+            await Observable.Merge(observables).ForEachAsync(_ => { });
             Debug.WriteLine("Everything has ended");
+        }
+
+        [Fact]
+        public void Should()
+        {
+            var queue = new QueueService();
+            var operation = new Operation();
+            var myList = new List<int>
+            {
+                2000,
+                1000,
+                3000,
+                1000,
+                5000,
+                1000
+            };
+
+            IObservable<OperationResult> request = operation.Execute();
+            var result = queue.Enqueue(request);
+            result.Subscribe();
         }
         
         [Fact]
-        public async void MasterDoSomethingAsync()
+        public async Task MasterDoSomethingAsync()
         {
             var queue = new QueueService(2);
             var myList = new List<int>
@@ -100,11 +103,15 @@ namespace Forms.Tests
                 1000
             };
 
+            var tasks = new List<Task>();
             foreach (var value in myList)
             {
-                var result = queue.EnqueueTask(async () => await MyWaitMethod(value));
-                Debug.WriteLine($"Result of task: {result.Result}");
+                tasks.Add(queue
+                    .EnqueueTask(async () => await MyWaitMethod(value))
+                    .ContinueWith(_ => { Debug.WriteLine($"Result of task: {_.Result}"); })
+                );
             }
+            await Task.WhenAll(tasks);
             Debug.WriteLine("Everything has ended");
         }
 
@@ -117,5 +124,10 @@ namespace Forms.Tests
             Debug.WriteLine($"MyWaitMethod End, WaitTime: {waitTime}ms, DateTime {DateTime.UtcNow}");
             return true;
         }
+    }
+
+    internal class TestOperation : Operation
+    {
+        
     }
 }
