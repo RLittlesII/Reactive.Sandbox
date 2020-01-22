@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reactive;
 using System.Reactive.Disposables;
@@ -48,6 +49,62 @@ namespace ListView
                 .Subscribe()
                 .DisposeWith(Registrations);
 
+            LoadData = ReactiveCommand.Create(() =>
+            {
+                _itemDataService
+                    .Add(new List<Item>
+                    {
+                        new Item
+                        {
+                            Id = Guid.NewGuid(),
+                            Type = ItemType.Some
+                        },
+
+                        new Item
+                        {
+                            Id = Guid.NewGuid(),
+                            Type = ItemType.Some
+                        },
+
+                        new Item
+                        {
+                            Id = Guid.NewGuid(),
+                            Type = ItemType.Some
+                        },
+
+                        new Item
+                        {
+                            Id = Guid.NewGuid(),
+                            Type = ItemType.Some
+                        },
+                        new Item
+                        {
+                            Id = Guid.NewGuid(),
+                            Type = ItemType.Some
+                        },
+                        new Item
+                        {
+                            Id = Guid.NewGuid(),
+                            Type = ItemType.Some
+                        },
+                        new Item
+                        {
+                            Id = Guid.NewGuid(),
+                            Type = ItemType.Some
+                        },
+                        new Item
+                        {
+                            Id = Guid.NewGuid(),
+                            Type = ItemType.Some
+                        },
+                        new Item
+                        {
+                            Id = Guid.NewGuid(),
+                            Type = ItemType.Some
+                        }
+                    });
+            });
+
             ChangeSegment = ReactiveCommand.Create<int, Unit>(segment =>
             {
                 switch (segment)
@@ -80,6 +137,8 @@ namespace ListView
             get => _selectedItem;
             set => this.RaiseAndSetIfChanged(ref _selectedItem, value);
         }
+
+        public ReactiveCommand<Unit, Unit> LoadData { get; set; }
 
         public ReactiveCommand<int, Unit> ChangeSegment { get; set; }
     }

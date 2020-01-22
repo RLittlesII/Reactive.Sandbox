@@ -98,6 +98,11 @@ namespace ListView
                 .DisposeWith(ControlBindings);
 
             tableViewSource.Connect().DisposeWith(ControlBindings);
+
+            this.WhenAnyValue(x => x.ViewModel.LoadData)
+                .WhereNotNull()
+                .InvokeCommand(this, x => x.ViewModel.LoadData)
+                .DisposeWith(ControlBindings);
         }
 
     }
