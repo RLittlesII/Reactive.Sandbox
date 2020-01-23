@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reactive;
 using System.Reactive.Disposables;
+using System.Reactive.Linq;
 using DynamicData;
 using ReactiveUI;
 using Sextant;
@@ -13,11 +14,12 @@ namespace ListView
     {
         private static readonly CompositeDisposable Registrations = new CompositeDisposable();
         private readonly ItemDataService _itemDataService;
-        private ObservableCollection<TableCellViewModel> _items;
         private readonly ReadOnlyObservableCollection<TableCellViewModel> _someItems;
         private readonly ReadOnlyObservableCollection<TableCellViewModel> _otherItems;
         private readonly ReadOnlyObservableCollection<TableCellViewModel> _allItems;
+        private ObservableCollection<TableCellViewModel> _items;
         private TableCellViewModel _selectedItem;
+        private nint _selectedSegment;
 
         public ListViewModel(ItemDataService itemDataService)
         {
@@ -26,6 +28,7 @@ namespace ListView
             _itemDataService
                 .ChangedItems
                 .Transform(x => new TableCellViewModel(x))
+                .ObserveOn(RxApp.MainThreadScheduler)
                 .Bind(out _allItems)
                 .DisposeMany()
                 .Subscribe()
@@ -35,6 +38,7 @@ namespace ListView
                 .ChangedItems
                 .Filter(x => x.Type == ItemType.Some)
                 .Transform(x => new TableCellViewModel(x))
+                .ObserveOn(RxApp.MainThreadScheduler)
                 .Bind(out _someItems)
                 .DisposeMany()
                 .Subscribe()
@@ -44,6 +48,7 @@ namespace ListView
                 .ChangedItems
                 .Filter(x => x.Type == ItemType.Other)
                 .Transform(x => new TableCellViewModel(x))
+                .ObserveOn(RxApp.MainThreadScheduler)
                 .Bind(out _otherItems)
                 .DisposeMany()
                 .Subscribe()
@@ -121,7 +126,7 @@ namespace ListView
                 }
 
                 return Unit.Default;
-            });
+            }, outputScheduler: RxApp.MainThreadScheduler);
         }
 
         public string Id { get; } = "List View";
@@ -136,6 +141,12 @@ namespace ListView
         {
             get => _selectedItem;
             set => this.RaiseAndSetIfChanged(ref _selectedItem, value);
+        }
+
+        public nint SelectedSegment
+        {
+            get => _selectedSegment;
+            set => this.RaiseAndSetIfChanged(ref _selectedSegment, value);
         }
 
         public ReactiveCommand<Unit, Unit> LoadData { get; set; }

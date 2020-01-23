@@ -19,7 +19,7 @@ namespace ListView
 
         void Initialize()
         {
-            BackgroundColor = UIColor.Red;
+            BackgroundColor = UIColor.SystemPurpleColor;
         }
     }
 }
