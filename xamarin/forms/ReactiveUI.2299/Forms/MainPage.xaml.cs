@@ -1,5 +1,7 @@
 ﻿using ReactiveUI;
 using ReactiveUI.XamForms;
+using System.Reactive;
+using System.Reactive.Linq;
 using Xamarin.Forms;
 
 namespace Forms
@@ -10,12 +12,16 @@ namespace Forms
         {
             InitializeComponent();
 
-            RefreshView
-                .Events()
-                .Refreshing
-                .InvokeCommand(this, x => x.ViewModel.RefreshCommand);
+            //RefreshView
+            //    .Events()
+            //    .Refreshing
+            //    .Select(_ => Unit.Default)
+            //    .InvokeCommand(this, x => x.ViewModel.RefreshCommand);
 
-            this.OneWayBind(ViewModel, x => x.IsRefreshing, x => x.RefreshView.IsRefreshing);
+            this.Bind(ViewModel, x => x.IsRefreshing, x => x.RefreshView.IsRefreshing);
+            this.OneWayBind(ViewModel, x => x.IsRefreshing, x => x.Indicator.IsRunning);
+            this.BindCommand(ViewModel, x => x.RxRefreshCommand, x => x.RefreshView);
+            this.BindCommand(ViewModel, x => x.RxRefreshCommand, x => x.RefreshButton);
         }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using ReactiveUI;
 using Xamarin.Forms;
 
@@ -10,10 +12,9 @@ namespace Forms
 {
     public class MainPageViewModel : ReactiveObject
     {
-        const int RefreshDuration = 2;
         int itemNumber = 1;
         readonly Random random;
-        private readonly ObservableAsPropertyHelper<bool> _isRefreshing;
+        private bool _isRefreshing;
 
         public MainPageViewModel()
         {
@@ -21,20 +22,45 @@ namespace Forms
             Items = new ObservableCollection<Item>();
             AddItems();
 
-            RefreshCommand = ReactiveCommand.CreateFromTask<EventArgs>(async args => await RefreshItemsAsync(), outputScheduler: RxApp.MainThreadScheduler);
+            XfRefreshCommand =
+                new Command(() =>
+                {
+                    // When binding to this command, set the RefreshView.IsRefreshing binding to two-way in the view
+                    RefreshItems()
+                        .Select(_ => false)
+                        .ObserveOn(RxApp.MainThreadScheduler)
+                        .BindTo(this, x => x.IsRefreshing);
+                });
 
-            _isRefreshing =
-                this.WhenAnyObservable(x => x.RefreshCommand.IsExecuting)
-                    .StartWith(false)
-                    .DistinctUntilChanged()
-                    .ToProperty(this, nameof(IsRefreshing), scheduler: RxApp.MainThreadScheduler);
+            RxRefreshCommand = ReactiveCommand.CreateFromObservable<Unit, Unit>(
+                _ => RefreshItems(),
+                outputScheduler: RxApp.MainThreadScheduler);
+
+            RxRefreshCommand
+                .IsExecuting
+                .Where(isExecuting => !isExecuting)
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .BindTo(this, x => x.IsRefreshing);
+
+            RxRefreshCommand
+                .ThrownExceptions
+                .Subscribe(ex => Debug.WriteLine(ex));
+
+            RxRefreshCommand
+                .Subscribe();
         }
 
-        public bool IsRefreshing => _isRefreshing.Value;
+        public bool IsRefreshing
+        {
+            get => _isRefreshing;
+            set => this.RaiseAndSetIfChanged(ref _isRefreshing, value);
+        }
 
         public ObservableCollection<Item> Items { get; private set; }
 
-        public ReactiveCommand<EventArgs, Unit> RefreshCommand { get; set; }
+        public ReactiveCommand<Unit, Unit> RxRefreshCommand { get; set; }
+
+        public ICommand XfRefreshCommand { get; set; }
 
         void AddItems()
         {
@@ -48,10 +74,17 @@ namespace Forms
             }
         }
 
-        async Task RefreshItemsAsync()
+        private IObservable<Unit> RefreshItems()
         {
-            await Observable.Return(Unit.Default).Delay(TimeSpan.FromSeconds(3));
-            AddItems();
+            return Observable
+                .Return(Unit.Default)
+                .Delay(TimeSpan.FromSeconds(3), RxApp.TaskpoolScheduler)
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Select(_ =>
+                {
+                    AddItems();
+                    return Unit.Default;
+                });
         }
     }
 }
