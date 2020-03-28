@@ -11,7 +11,103 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="4.3.0.908675" />
+    <PackageReference Include="Xamarin.Forms" Version="4.4.0.991757" />
     <PackageReference Include="Xamarin.Essentials" Version="1.3.1" />
+    <PackageReference Include="ReactiveUI.XamForms" Version="11.2.3" />
+    <PackageReference Include="Pharmacist.MsBuild" Version="1.*" PrivateAssets="all" />
+    <PackageReference Include="Pharmacist.Common" Version="1.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="LoadData.xaml">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="LoadDataViewCell.xaml">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="LoadData.xaml.cs">
+      <DependentUpon>LoadData.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="LoadDataViewCell.xaml.cs">
+      <DependentUpon>LoadDataViewCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="obj\Debug\netstandard2.0\EventExtensions.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\Events.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxApplicationEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxBaseShellItemEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxBindableObjectEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxButtonEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxCarouselViewEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxCellEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxCheckBoxEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxChildGestureRecognizerEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxClickGestureRecognizerEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxColumnDefinitionEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxCommandEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxDatePickerEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxDeviceInfoEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxEditorEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxElementEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxEntryCellEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxEntryEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxICellControllerEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxIDefinitionEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxIElementControllerEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxILayoutEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxIListProxyEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxIListViewControllerEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxImageButtonEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxIMasterDetailPageControllerEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxINavigationPageControllerEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxInputViewEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxIOpenGlViewControllerEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxIResourceDictionaryEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxIScrollViewControllerEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxISearchHandlerControllerEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxIShellControllerEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxIShellSectionControllerEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxISwipeItemEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxITableViewControllerEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxItemsViewEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxIVisualElementControllerEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxIWebViewControllerEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxLayoutEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxListViewEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxMasterDetailPageEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxMenuItemEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxNavigationPageEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxOpenGLViewEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxPageEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxPanGestureRecognizerEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxPickerEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxPinchGestureRecognizerEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxRefreshViewEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxRowDefinitionEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxScrollViewEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxSearchBarEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxSearchHandlerEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxSelectableItemsViewEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxShellEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxSliderEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxStepperEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxSwipeGestureRecognizerEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxSwipeItemEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxSwipeItemsEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxSwipeItemViewEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxSwipeViewEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxSwitchCellEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxSwitchEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxTableModelEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxTableViewEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxTapGestureRecognizerEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxToolbarItemEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxToolbarTrackerEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxVisualElementEvents.cs" />
+    <Compile Include="obj\Debug\netstandard2.0\RxWebViewEvents.cs" />
   </ItemGroup>
 </Project>

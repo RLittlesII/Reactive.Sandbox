@@ -10,7 +10,7 @@ namespace LoadData
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new LoadData();
         }
 
         protected override void OnStart()

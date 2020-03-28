@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<reactiveui:ReactiveContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                              xmlns:loadData="clr-namespace:LoadData;assembly=LoadData"
+                              xmlns:reactiveui="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
+                              x:Class="LoadData.LoadData"
+                              x:TypeArguments="loadData:LoadDataViewModel">
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <loadData:LoadDataViewCell />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</reactiveui:ReactiveContentPage>
