@@ -11,7 +11,7 @@ namespace Services
         protected readonly IHubClient HubClient;
         protected readonly SourceCache<T, Guid> SourceCache = new SourceCache<T, Guid>(x => x.Id);
 
-        public DataServiceBase(IHubClient hubClient)
+        protected DataServiceBase(IHubClient hubClient)
         {
             HubClient = hubClient;
         }
@@ -23,23 +23,14 @@ namespace Services
         public async Task<T> Get(Guid id)
         {
             await HubClient.Connect();
-            SourceCache.AddOrUpdate(default(T));
-            return default;
+            var optional = SourceCache.Lookup(id);
+            return optional.HasValue ? optional.Value : default;
         }
 
-        public async Task GetAll()
-        {
-            SourceCache.AddOrUpdate(default(T));
-        }
+        public async Task GetAll() => await Task.CompletedTask;
 
-        public async Task Save(T entity)
-        {
-            SourceCache.AddOrUpdate(default(T));
-        }
+        public async Task Save(T entity) => SourceCache.AddOrUpdate(entity);
 
-        public async Task Delete(T entity)
-        {
-            SourceCache.Remove(entity.Id);
-        }
+        public async Task Delete(T entity) => SourceCache.Remove(entity.Id);
     }
 }

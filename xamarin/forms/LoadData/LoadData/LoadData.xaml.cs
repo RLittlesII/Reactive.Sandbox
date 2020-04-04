@@ -2,17 +2,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
+using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Text;
 using ReactiveUI;
 using ReactiveUI.XamForms;
+using Services.Coffee;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace LoadData
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class LoadData : ReactiveContentPage<LoadDataViewModel>
+    public partial class LoadData : ContentPageBase<LoadDataViewModel>
     {
         public LoadData()
         {
@@ -28,7 +30,12 @@ namespace LoadData
                 .Select(x => Unit.Default)
                 .InvokeCommand(this, x => x.ViewModel.InitializeData);
 
-            ViewModel = new LoadDataViewModel();
+            this.WhenAnyValue(x => x.ViewModel.Items)
+                .Where(x => x != null)
+                .BindTo(this, x => x.LoadedList.ItemsSource)
+                .DisposeWith(ViewBindings);
+
+            ViewModel = new LoadDataViewModel(new CoffeeBeanDataService(new CoffeeBeanClientMock()));
         }
     }
 }

@@ -22,6 +22,11 @@ namespace Services
 
     public class Dto
     {
+        protected Dto()
+        {
+            Id = Guid.NewGuid();
+        }
+
         public Guid Id { get; set; }
     }
 }

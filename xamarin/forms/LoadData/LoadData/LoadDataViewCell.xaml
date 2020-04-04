@@ -6,10 +6,9 @@
                            xmlns:loadData="clr-namespace:LoadData;assembly=LoadData"
                            x:Class="LoadData.LoadDataViewCell"
                            x:TypeArguments="loadData:LoadDataItemViewModel" >
-    
-        <StackLayout>
-            <Label Text="Hello, world!"
-                   VerticalOptions="CenterAndExpand"
-                   HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+    <StackLayout>
+        <Label Text="Hello, world!"
+               VerticalOptions="CenterAndExpand"
+               HorizontalOptions="CenterAndExpand" />
+    </StackLayout>
 </reactiveui:ReactiveViewCell>

@@ -9,7 +9,7 @@ namespace Services.Coffee
         {
             CoffeeBeans =
                 Observable
-                    .Interval(TimeSpan.FromSeconds(1))
+                    .Interval(TimeSpan.FromSeconds(1.5))
                     .Select(x => new CoffeeBeanDto
                     {
                         Pounds = 2500,
