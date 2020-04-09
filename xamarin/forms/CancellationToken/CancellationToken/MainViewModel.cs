@@ -1,24 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+using System;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using ReactiveUI.XamForms;
+using ReactiveUI;
 using Xamarin.Essentials;
-using Xamarin.Forms;
 
 namespace CancellationToken
 {
-    // Learn more about making custom code visible in the Xamarin.Forms previewer
-    // by visiting https://aka.ms/xamarinforms-previewer
-    [DesignTimeVisible(false)]
-    public partial class MainPage : ReactiveContentPage<MainViewModel>
+    public class MainViewModel : ReactiveObject
     {
-        public MainPage()
+        private ObservableCancellationTokenSource<ConnectivityChangedEventArgs> _cancellationTokenSource;
+
+        public MainViewModel()
         {
-            InitializeComponent();
 
             var connectivityChanges =
                 Observable
@@ -31,7 +26,7 @@ namespace CancellationToken
                         x => Connectivity.ConnectivityChanged += x,
                         x => Connectivity.ConnectivityChanged -= x);
 
-            var cancellationTokenSource =
+            _cancellationTokenSource =
                 connectivityChanges
                     .FirstAsync(x =>
                         x.NetworkAccess != NetworkAccess.Internet ||
@@ -39,6 +34,18 @@ namespace CancellationToken
                             .ConnectionProfiles
                             .All(connectionProfile => connectionProfile != ConnectionProfile.WiFi))
                     .ToCancellationTokenSource();
+
+            GetData = ReactiveCommand.CreateFromTask(ExecuteGetData);
+        }
+
+        public ReactiveCommand<Unit, Unit> GetData { get; set; }
+
+        private Task ExecuteGetData()
+        {
+            using (_cancellationTokenSource)
+            {
+                
+            }
         }
     }
 }
