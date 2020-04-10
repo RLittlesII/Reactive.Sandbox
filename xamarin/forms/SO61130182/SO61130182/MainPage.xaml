@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xamForms:ReactiveContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:d="http://xamarin.com/schemas/2014/forms/design" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                              xmlns:xamForms="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
+                              xmlns:so61130182="clr-namespace:SO61130182;assembly=SO61130182"
+                              mc:Ignorable="d" x:Class="SO61130182.MainPage"
+                              x:TypeArguments="so61130182:MainViewModel">
+    <StackLayout>
+        <!-- Place new controls here -->
+        <Label Text="Welcome to Xamarin.Forms!" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+        <Button x:Name="ThingOne" Text="Thing One" BackgroundColor="Blue" />
+        <Button x:Name="ThingTwo" Text="Thing Two" BackgroundColor="Blue" />
+    </StackLayout>
+</xamForms:ReactiveContentPage>
