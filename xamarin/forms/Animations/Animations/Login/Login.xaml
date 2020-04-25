@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ui:BaseContentPageRxUI xmlns="http://xamarin.com/schemas/2014/forms"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        mc:Ignorable="d"
+                        x:Class="Animations.Login.Login"
+                        xmlns:ui="clr-namespace:Animations.Views.Base"
+                        xmlns:effects="clr-namespace:Animations.Effects"
+                        xmlns:behaviors="clr-namespace:Animations.Behaviors"
+                        xmlns:renderers="clr-namespace:Animations.Renderers"
+                        xmlns:resources="clr-namespace:Animations.Resources"
+                        xmlns:vms="clr-namespace:Animations.Login;assembly=Animations"
+                        xmlns:entry="clr-namespace:Animations.Entry;assembly=Animations"
+                        xmlns:loading="clr-namespace:Animations.Loading;assembly=Animations"
+
+                        x:TypeArguments="vms:LoginViewModel"
+                        NavigationPage.HasNavigationBar="False">
+    <ui:BaseContentPageRxUI.Resources>
+        <ResourceDictionary
+            x:Name="QConnectResource"
+            Source="/Styles/QConnectStyles.xaml" />
+    </ui:BaseContentPageRxUI.Resources>
+
+    <Grid>
+        <ScrollView VerticalOptions="Fill"
+                    BackgroundColor="#FFFFFF"
+                    x:Name="ScrollViewContainer">
+            <Grid Padding="15, 0, 15, 10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+                <!-- Place new controls here -->
+                <Image Grid.Row="0"
+                       Aspect="AspectFit"
+                       Source="qlogo"
+                       HorizontalOptions="Center"
+                       HeightRequest="100"
+                       VerticalOptions="Start"
+                       Margin="50, 20, 50, 80" />
+                <Label Grid.Row="0"
+                       x:Name="AppVersion"
+                       HorizontalOptions="End"
+                       VerticalOptions="Center"
+                       Margin="0, 5, 50, 0"
+                       TextColor="Gray"
+                       Style="{StaticResource DefaultLabel}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="2" x:Name="AppVersionTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <entry:QConnectFormEntry Grid.Row="2"
+                                            x:Name="UsernameOne"
+                                            Margin="0,-1"
+                                            Text="{Binding Username.Value, Mode=TwoWay}"
+                                            Header="{x:Static resources:LoginResx.UsernameHeader}"
+                                            Placeholder="{x:Static resources:LoginResx.UsernamePlaceholder}"
+                                            ErrorMessage="{Binding Username.ErrorMessage}"
+                                            KeyboardScope="Text"
+                                            ReturnType="Next"
+                                            MaxLength="50" />
+
+                <renderers:MaterialFrame Grid.Row="2"
+                                         Elevation="0"
+                                         BackgroundColor="{StaticResource SettingsBackgroundColor}"
+                                         BorderColor="White"
+                                         CornerRadius="5">
+                    <Grid RowSpacing="5"
+                          ColumnSpacing="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <BoxView Grid.Row="0"
+                                 Margin="0"
+                                 BackgroundColor="LightGray"
+                                 CornerRadius="3" />
+
+                        <Label Grid.Row="0" VerticalOptions="Center"
+                               VerticalTextAlignment="Center"
+                               FontFamily="{StaticResource MaterialFontFamily}"
+                               Text="{StaticResource Padlock}"
+                               FontSize="20"
+                               TextColor="Black"
+                               HorizontalOptions="Center" />
+
+                        <renderers:BorderlessEntry Grid.Row="0"
+                                                   Grid.Column="1"
+                                                   x:Name="CompanyName"
+                                                   AutomationId="CompanyName"
+                                                   Placeholder="your company"
+                                                   HorizontalOptions="FillAndExpand"
+                                                   HorizontalTextAlignment="Start"
+                                                   Margin="5,0,0,0"
+                                                   VerticalOptions="Center"
+                                                   FontSize="Medium"
+                                                   Style="{StaticResource EntryInput}"
+                                                   Focused="CompanyName_Focused" />
+                        <BoxView Grid.Row="0"
+                                 Grid.Column="1"
+                                 Grid.ColumnSpan="2"
+                                 BackgroundColor="LightGray"
+                                 HeightRequest="1"
+                                 VerticalOptions="End" />
+
+                        <Label Grid.Row="0"
+                               Grid.Column="2"
+                               x:Name="Domain"
+                               FontSize="Medium"
+                               TextColor="{StaticResource SeparatorColor}"
+                               VerticalOptions="Center"
+                               VerticalTextAlignment="Center"
+                               HorizontalOptions="EndAndExpand"
+                               HorizontalTextAlignment="End"
+                               Margin="0, 0, 0, 0" />
+                        <StackLayout x:Name="SandboxChoiceControls"
+                                     Grid.Row="1"
+                                     Grid.ColumnSpan="2"
+                                     Orientation="Horizontal" Spacing="0">
+                            <CheckBox x:Name="SandboxCheckbox"
+                                      Margin="-8, 0, 0, 0"
+                                      Color="{StaticResource QConnectColor}"
+                                      VerticalOptions="End"
+                                      Visual="Material" />
+                            <Label x:Name="SandboxCheckboxLabel"
+                                   FontSize="Small"
+                                   VerticalOptions="Center"
+                                   VerticalTextAlignment="Center"
+                                   HorizontalOptions="Start"
+                                   HorizontalTextAlignment="Start"
+                                   TextColor="{StaticResource QConnectColor}"
+                                   Text="{x:Static resources:LoginResx.CheckboxLabel}" />
+                        </StackLayout>
+                        <Label Grid.Row="1"
+                               Grid.Column="2"
+                               VerticalOptions="Center"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="End"
+                               HorizontalOptions="End"
+                               FontSize="Small"
+                               Text="help" />
+                    </Grid>
+                    <renderers:MaterialFrame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="CompanyNameFrame_Tapped" />
+                    </renderers:MaterialFrame.GestureRecognizers>
+                </renderers:MaterialFrame>
+                <entry:QConnectFormEntry Grid.Row="3"
+                                            x:Name="Username"
+                                            Margin="0,-1"
+                                            Text="{Binding Username.Value, Mode=TwoWay}"
+                                            Header="{x:Static resources:LoginResx.UsernameHeader}"
+                                            Placeholder="{x:Static resources:LoginResx.UsernamePlaceholder}"
+                                            ErrorMessage="{Binding Username.ErrorMessage}"
+                                            KeyboardScope="Text"
+                                            ReturnType="Next"
+                                            MaxLength="50" />
+
+                <entry:QConnectFormEntry Grid.Row="4"
+                                            x:Name="Password"
+                                            Margin="0,-1"
+                                            Header="{x:Static resources:LoginResx.PasswordHeader}"
+                                            Placeholder="{x:Static resources:LoginResx.PasswordPlaceholder}"
+                                            IsPassword="True"
+                                            MaxLength="50"
+                                            ReturnType="Done"
+                                            ReturnCommand="{Binding LoginCommand}"
+                                            Text="{Binding Password.Value, Mode=TwoWay}"
+                                            ErrorMessage="{Binding Password.ErrorMessage}" />
+
+
+                <loading:LoadingButton Grid.Row="14"
+                                        x:Name="NextButton"
+                                        AutomationId="DoneButton"
+                                        Text="{x:Static resources:LoginResx.LoginButton}"
+                                        CornerRadius="3"
+                                        Elevation="0"
+                                        Margin="0"
+                                        Padding="0"
+                                        FrameMargin="0, 10" />
+            </Grid>
+        </ScrollView>
+    </Grid>
+
+</ui:BaseContentPageRxUI>

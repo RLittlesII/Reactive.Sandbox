@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<ContentView
+    x:Name="This"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:resources="clr-namespace:Animations.Resources"
+    xmlns:renderers="clr-namespace:Animations.Renderers"
+    xmlns:behaviors="clr-namespace:Animations.Behaviors"
+    x:Class="Animations.Entry.FormEntry"
+    BackgroundColor="Transparent">
+
+    <ContentView.Resources>
+        <ResourceDictionary Source="/Styles/QConnectStyles.xaml" />
+    </ContentView.Resources>
+
+    <ContentView.Content>
+        <renderers:MaterialFrame
+            x:Name="TheFrame"
+            Elevation="0"
+            Padding="0,0.8,0,0.8"
+            Margin="-1,0,-1,0"
+            BackgroundColor="{StaticResource SettingsBackgroundColor}"
+            BorderColor="White"
+            CornerRadius="5">
+
+            <renderers:MaterialFrame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="FrameTapGestureRecognizer_OnTapped" />
+            </renderers:MaterialFrame.GestureRecognizers>
+
+            <Grid RowSpacing="0">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Label
+                    AutomationId="HelpLabel"
+                    Style="{StaticResource EntryHelp}"
+                    Text="{Binding Source={x:Reference This}, Path=Header}" />
+
+                <StackLayout
+                    Orientation="Horizontal"
+                    HorizontalOptions="FillAndExpand"
+                    Spacing="0"
+                    Grid.Row="1">
+                    <StackLayout.Margin>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <On Platform="Android">15,-6,60,6</On>
+                            <On Platform="iOS">28,5,60,13</On>
+                        </OnPlatform>
+                    </StackLayout.Margin>
+
+                    <ContentView
+                        Content="{Binding Source={x:Reference This}, Path=LeftView}"
+                        VerticalOptions="Center" />
+
+                    <renderers:BorderlessEntry
+                        x:Name="DataValueEntry"
+                        x:FieldModifier="public"
+                        FontSize="Medium"
+                        AutomationId="DataValueEntry"
+                        HorizontalOptions="FillAndExpand"
+                        Focused="DataValueEntry_OnFocused"
+                        Unfocused="DataValueEntry_OnUnfocused"
+                        TextChanged="DataValueEntry_OnTextChanged"
+                        Style="{StaticResource EntryInput}"
+                        ReturnType="{Binding Source={x:Reference This}, Path=ReturnType}"
+                        ReturnCommand="{Binding Source={x:Reference This}, Path=ReturnCommand}"
+                        MaxLength="{Binding Source={x:Reference This}, Path=MaxLength}"
+                        Keyboard="{Binding Source={x:Reference This}, Path=KeyboardScope}"
+                        Placeholder="{Binding Source={x:Reference This}, Path=Placeholder}"
+                        IsPassword="{Binding Source={x:Reference This}, Path=PasswordHidden}"
+                        Text="{Binding Source={x:Reference This}, Path=Text, Mode=TwoWay}" />
+                </StackLayout>
+
+                <Label
+                    Grid.Row="2"
+                    x:Name="ErrorLabel"
+                    AutomationId="ErrorLabel"
+                    Margin="20, 0, 20, 20"
+                    IsVisible="False"
+                    Style="{StaticResource EntryError}"
+                    Text="{Binding Source={x:Reference This}, Path=ErrorMessage}" />
+
+                <StackLayout
+                    Grid.Row="0"
+                    Grid.RowSpan="3"
+                    x:Name="TogglePasswordVisibilityButton"
+                    VerticalOptions="Start"
+                    HorizontalOptions="End"
+                    Orientation="Horizontal"
+                    IsVisible="{Binding Source={x:Reference This}, Path=IsPassword}"
+                    Margin="0,15,10,0"
+                    Padding="1">
+
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TogglePassword_TapGesture_OnTapped" />
+                    </StackLayout.GestureRecognizers>
+
+                    <StackLayout.Behaviors>
+                        <behaviors:ClickEffectBehavior />
+                    </StackLayout.Behaviors>
+
+                    <Image
+                        x:Name="ShowHideImage"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center"
+                        WidthRequest="25"
+                        HeightRequest="25"
+                        Aspect="AspectFit"
+                        Source="eye_cross" />
+
+                    <Label
+                        x:Name="ShowHideLabel"
+                        WidthRequest="35"
+                        Text="{x:Static resources:FormEntryControlResx.ShowPassword}"
+                        FontSize="Small"
+                        FontFamily="{StaticResource RobotoLight}"
+                        VerticalOptions="Center" />
+                </StackLayout>
+
+                <renderers:MaterialFrame
+                    Grid.Row="0"
+                    Grid.RowSpan="3"
+                    x:Name="ClearButton"
+                    Elevation="9"
+                    Margin="0,0,20,0"
+                    WidthRequest="52"
+                    HeightRequest="25"
+                    VerticalOptions="Center"
+                    HorizontalOptions="End"
+                    BackgroundColor="White"
+                    BorderColor="White"
+                    CornerRadius="14"
+                    HasShadow="True"
+                    IsVisible="False"
+                    Padding="1">
+
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Clear_TapGesture_OnTapped" />
+                    </Frame.GestureRecognizers>
+
+                    <Frame.Behaviors>
+                        <behaviors:ClickEffectBehavior />
+                    </Frame.Behaviors>
+
+                    <Label
+                        FontSize="12"
+                        Style="{StaticResource ButtonLabel}"
+                        Text="{x:Static resources:FormEntryControlResx.Clear}"
+                        TextColor="#808285" />
+
+                </renderers:MaterialFrame>
+
+            </Grid>
+        </renderers:MaterialFrame>
+    </ContentView.Content>
+</ContentView>

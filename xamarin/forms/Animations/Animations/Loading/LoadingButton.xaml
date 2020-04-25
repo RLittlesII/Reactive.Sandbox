@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:behaviors="clr-namespace:Animations.Behaviors"
+             xmlns:renderer="clr-namespace:Animations.Renderers"
+             mc:Ignorable="d"
+             x:Name="This"
+             x:Class="Animations.Loading.LoadingButton"
+             Style="{StaticResource QConnectLoadingButton}">
+    <ContentView.Resources>
+        <ResourceDictionary
+            x:Name="QConnectResources"
+            Source="/Styles/QConnectStyles.xaml" />
+    </ContentView.Resources>
+
+    <ContentView.GestureRecognizers>
+        <TapGestureRecognizer Tapped="TapGesture_OnTapped" />
+    </ContentView.GestureRecognizers>
+
+    <ContentView.Behaviors>
+        <behaviors:ClickEffectBehavior />
+    </ContentView.Behaviors>
+
+    <Grid
+        x:Name="TheGrid"
+        Margin="{Binding Source={x:Reference This}, Path=FrameMargin}"
+        HorizontalOptions="{Binding Source={x:Reference This}, Path=HorizontalScale}">
+        <renderer:MaterialFrame
+            x:Name="BorderFrame"
+            HeightRequest="{Binding Source={x:Reference This}, Path=ButtonHeight}"
+            BackgroundColor="{Binding Source={x:Reference This}, Path=FrameBackgroundColor}"
+            BorderColor="{Binding Source={x:Reference This}, Path=FrameBorderColor}"
+            CornerRadius="{Binding Source={x:Reference This}, Path=CornerRadius}"
+            Elevation="{Binding Source={x:Reference This}, Path=Elevation}"
+            Padding="10,1">
+            <Grid x:Name="TextStack">
+                <Image
+                    x:Name="IconSourceImage"
+                    WidthRequest="30"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center"
+                    Aspect="AspectFit"
+                    AutomationId="IconSourceImage">
+                    <Image.Source>
+                        <FileImageSource File="{Binding Source={x:Reference This}, Path=IconSource}" />
+                    </Image.Source>
+                </Image>
+                <renderer:LetterSpacingLabel
+                    Style="{StaticResource ButtonLabel}"
+                    Scale="{Binding Source={x:Reference This}, Path=FontScale}"
+                    Text="{Binding Source={x:Reference This}, Path=Text}"
+                    TextColor="{Binding Source={x:Reference This}, Path=LabelColor}"
+                    LetterSpacing="0.1" />
+            </Grid>
+        </renderer:MaterialFrame>
+
+        <ActivityIndicator
+            x:Name="Indicator"
+            WidthRequest="34"
+            HeightRequest="34"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            IsRunning="True"
+            IsVisible="True"
+            Color="Black" />
+    </Grid>
+
+</ContentView>
