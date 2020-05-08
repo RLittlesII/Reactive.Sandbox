@@ -1,4 +1,6 @@
 using System;
+using System.Reactive;
+using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
 using Microsoft.Reactive.Testing;
@@ -21,6 +23,31 @@ namespace ReactiveCommandExecuteTests
             var result = await task;
 
             Assert.Equal(result, 1);
+        });
+
+        [Fact]
+        public void InvokeCommandTest() => new TestScheduler().With(scheduler =>
+        {
+            var fixture = ReactiveCommand.CreateFromTask(TaskAsync, outputScheduler: scheduler);
+
+            var didFire = false;
+            fixture.Subscribe(_ => didFire = true);
+
+            Observable.Return(Unit.Default).ObserveOn(scheduler).InvokeCommand(fixture);
+
+            Assert.True(didFire);
+        });
+
+        [Fact]
+        public void CommandIsExecutingTest() => new TestScheduler().With(scheduler =>
+        {
+            var fixture = ReactiveCommand.CreateFromTask(TaskAsync, outputScheduler: scheduler);
+            var didFire = false;
+            fixture.IsExecuting.Subscribe(_ => didFire = _);
+            
+            Assert.False(didFire);
+            Observable.Return(Unit.Default).ObserveOn(scheduler).InvokeCommand(fixture);
+            Assert.True(didFire);
         });
 
         private async Task<int> TaskAsync()
