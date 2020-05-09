@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<reactiveui:ReactiveContentPage x:TypeArguments="removeable:MainViewModel" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:d="http://xamarin.com/schemas/2014/forms/design" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                              xmlns:reactiveui="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
+                              xmlns:removeable="clr-namespace:Removeable;assembly=Removeable"
+                              mc:Ignorable="d" x:Class="Removeable.MainPage">
+    <ContentPage.Resources>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <!-- Place new controls here -->
+            <ListView x:Name="List">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <removeable:MainItemViewCell />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</reactiveui:ReactiveContentPage>

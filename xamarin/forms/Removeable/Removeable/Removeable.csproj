@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DynamicData" Version="6.14.18" />
+    <PackageReference Include="Pharmacist.Common" Version="1.*" />
+    <PackageReference Include="Pharmacist.MsBuild" Version="1.*" PrivateAssets="all" />
+    <PackageReference Include="ReactiveUI.XamForms" Version="11.4.1" />
+    <PackageReference Include="Rocket.Surgery.Reactive.Extensions" Version="2.3.1" />
+    <PackageReference Include="Xamarin.Forms" Version="4.5.0.725" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="MainItemViewCell.xaml">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="MainItemViewCell.xaml.cs">
+      <DependentUpon>MainItemViewCell.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+</Project>
