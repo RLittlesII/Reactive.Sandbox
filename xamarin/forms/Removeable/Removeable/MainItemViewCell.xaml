@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<reactiveui:ReactiveViewCell x:TypeArguments="removeable:MainItemViewModel" xmlns="http://xamarin.com/schemas/2014/forms"
+                           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                           xmlns:reactiveui="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
+                           xmlns:removeable="clr-namespace:Removeable;assembly=Removeable"
+                           x:Class="Removeable.MainItemViewCell">
+    <Grid Margin="16,0,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Label x:Name="Title"  />
+        <Button Grid.Column="1" x:Name="Remove" Text="{StaticResource RemoveIcon}" FontFamily="{StaticResource FontAwesomeSolid}" HorizontalOptions="End" />
+    </Grid>
+</reactiveui:ReactiveViewCell>
