@@ -1,0 +1,54 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <PharmacistGlobalPackages>true</PharmacistGlobalPackages>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DryIoc.dll" />
+    <PackageReference Include="DynamicData" />
+    <PackageReference Include="ReactiveUI.Events.XamForms" />
+    <PackageReference Include="ReactiveUI.XamForms" />
+    <PackageReference Include="Rg.Plugins.Popup" />
+    <PackageReference Include="Rocket.Surgery.Airframe.Forms" />
+    <PackageReference Include="Rocket.Surgery.Airframe.Configuration" />
+    <PackageReference Include="Rocket.Surgery.Airframe.Composition" />
+    <PackageReference Include="Rocket.Surgery.Airframe.Popup" />
+    <PackageReference Include="Rocket.Surgery.Airframe.ViewModels" />
+    <PackageReference Include="Rocket.Surgery.Task.Extensions" />
+    <PackageReference Include="Rocket.Surgery.Reactive.Extensions" />
+    <PackageReference Include="Rocket.Surgery.Xamarin.Essentials" />
+    <PackageReference Include="Rocket.Surgery.Xamarin.Essentials.Abstractions" />
+    <PackageReference Include="RxUI.Plugins.Popup" />
+    <PackageReference Include="Serilog.Sinks.AppCenter.Crash" />
+    <PackageReference Include="Sextant.XamForms" />
+    <PackageReference Include="Splat" />
+    <PackageReference Include="Splat.DryIoc" />
+    <PackageReference Include="Splat.Serilog" />
+    <PackageReference Include="System.Collections.Immutable" />
+    <PackageReference Include="System.Reactive" />
+    <PackageReference Include="Xamarin.Forms" />
+    <PackageReference Include="Xamarin.Essentials" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Main\MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Main\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>

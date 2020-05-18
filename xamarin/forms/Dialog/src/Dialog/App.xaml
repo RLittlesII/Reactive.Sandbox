@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<airframe:ApplicationBase xmlns="http://xamarin.com/schemas/2014/forms"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          xmlns:airframe="https://schemas.rocketsurgeonsguild.com/xaml/airframe/forms"
+                          x:Class="Dialog.App">
+    <Application.Resources>
+    </Application.Resources>
+</airframe:ApplicationBase>

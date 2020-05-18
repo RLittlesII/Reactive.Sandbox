@@ -1,0 +1,10 @@
+<Project>
+    <Import Project="$([MSBuild]::GetPathOfFileAbove('common.build.props', '$(MSBuildThisFileDirectory)../'))" />
+    <PropertyGroup>
+        <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)..\analyzers.ruleset</CodeAnalysisRuleSet>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <AdditionalFiles Include="$(MSBuildThisFileDirectory)..\stylecop.json" Link="stylecop.json" />
+    </ItemGroup>
+</Project>

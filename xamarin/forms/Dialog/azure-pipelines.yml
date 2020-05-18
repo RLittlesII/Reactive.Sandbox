@@ -1,0 +1,54 @@
+trigger:
+  branches:
+    include:
+      - master
+      - feature/*
+      - refs/tags/*
+pr:
+  autoCancel: true
+  branches:
+    include:
+      - master
+
+resources:
+  repositories:
+    - repository: rsg
+      type: github
+      name: RocketSurgeonsGuild/AzureDevopsTemplates
+      ref: refs/tags/v0.11.3
+      endpoint: github
+
+variables:
+  - group: rsg-bot
+  - name: CONFIGURATION
+    value: Release
+  - name: VERBOSITY
+    value: Normal
+  - name: COVERAGE
+    value: "$(Agent.BuildDirectory)/c"
+  - name: ARTIFACTS
+    value: $(Build.ArtifactStagingDirectory)
+  - name: DOTNET_SKIP_FIRST_TIME_EXPERIENCE
+    value: "true"
+  - name: CodeCovToken
+    value: 'ef5682ba-f998-4b0e-8a9e-2d9711c52f38'
+
+jobs:
+  - template: pipeline/nuke.yml@rsg
+    parameters:
+      name: 'macOS'
+      dependsOn: GitVersion
+      vmImage: "macOS-10.14"
+      Configuration: $(Configuration)
+      Verbosity: $(Verbosity)
+      GitHubPackages: true
+      EnableReleaseNotes: false
+      DotNetSdk:
+        - "2.2.x"
+        - "3.0.x"
+      NuGetVersion: "5.2.0"
+      PublishNuGetPackages: 'macOS'
+      Matrix:
+        macOS:
+          BuildName: "macOS"
+          ImageName: "macOS-latest"
