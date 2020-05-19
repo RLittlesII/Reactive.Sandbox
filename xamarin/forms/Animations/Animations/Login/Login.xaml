@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<ui:BaseContentPageRxUI xmlns="http://xamarin.com/schemas/2014/forms"
+<animations:BaseContentPageRxUI xmlns="http://xamarin.com/schemas/2014/forms"
                         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                         xmlns:d="http://xamarin.com/schemas/2014/forms/design"
                         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -12,16 +12,18 @@
                         xmlns:renderers="clr-namespace:Animations.Renderers"
                         xmlns:resources="clr-namespace:Animations.Resources"
                         xmlns:vms="clr-namespace:Animations.Login;assembly=Animations"
-                        xmlns:entry="clr-namespace:Animations.Entry;assembly=Animations"
                         xmlns:loading="clr-namespace:Animations.Loading;assembly=Animations"
+                        xmlns:animations="clr-namespace:Animations;assembly=Animations"
+                        xmlns:form="clr-namespace:Animations.Form;assembly=Animations"
+                        xmlns:controls="clr-namespace:Animations.Controls;assembly=Animations"
 
                         x:TypeArguments="vms:LoginViewModel"
                         NavigationPage.HasNavigationBar="False">
-    <ui:BaseContentPageRxUI.Resources>
+    <ContentPage.Resources>
         <ResourceDictionary
-            x:Name="QConnectResource"
-            Source="/Styles/QConnectStyles.xaml" />
-    </ui:BaseContentPageRxUI.Resources>
+            x:Name="Resource"
+            Source="/Styles/AnimationsStyles.xaml" />
+    </ContentPage.Resources>
 
     <Grid>
         <ScrollView VerticalOptions="Fill"
@@ -66,7 +68,7 @@
                     </Label.GestureRecognizers>
                 </Label>
 
-                <entry:QConnectFormEntry Grid.Row="2"
+                <form:FormEntry Grid.Row="2"
                                             x:Name="UsernameOne"
                                             Margin="0,-1"
                                             Text="{Binding Username.Value, Mode=TwoWay}"
@@ -77,7 +79,7 @@
                                             ReturnType="Next"
                                             MaxLength="50" />
 
-                <renderers:MaterialFrame Grid.Row="2"
+                <controls:MaterialFrame Grid.Row="2"
                                          Elevation="0"
                                          BackgroundColor="{StaticResource SettingsBackgroundColor}"
                                          BorderColor="White"
@@ -107,7 +109,7 @@
                                TextColor="Black"
                                HorizontalOptions="Center" />
 
-                        <renderers:BorderlessEntry Grid.Row="0"
+                        <controls:BorderlessEntry Grid.Row="0"
                                                    Grid.Column="1"
                                                    x:Name="CompanyName"
                                                    AutomationId="CompanyName"
@@ -142,7 +144,7 @@
                                      Orientation="Horizontal" Spacing="0">
                             <CheckBox x:Name="SandboxCheckbox"
                                       Margin="-8, 0, 0, 0"
-                                      Color="{StaticResource QConnectColor}"
+                                      Color="{StaticResource MainColor}"
                                       VerticalOptions="End"
                                       Visual="Material" />
                             <Label x:Name="SandboxCheckboxLabel"
@@ -151,7 +153,7 @@
                                    VerticalTextAlignment="Center"
                                    HorizontalOptions="Start"
                                    HorizontalTextAlignment="Start"
-                                   TextColor="{StaticResource QConnectColor}"
+                                   TextColor="{StaticResource MainColor}"
                                    Text="{x:Static resources:LoginResx.CheckboxLabel}" />
                         </StackLayout>
                         <Label Grid.Row="1"
@@ -163,11 +165,11 @@
                                FontSize="Small"
                                Text="help" />
                     </Grid>
-                    <renderers:MaterialFrame.GestureRecognizers>
+                    <controls:MaterialFrame.GestureRecognizers>
                         <TapGestureRecognizer Tapped="CompanyNameFrame_Tapped" />
-                    </renderers:MaterialFrame.GestureRecognizers>
-                </renderers:MaterialFrame>
-                <entry:QConnectFormEntry Grid.Row="3"
+                    </controls:MaterialFrame.GestureRecognizers>
+                </controls:MaterialFrame>
+                <form:FormEntry Grid.Row="3"
                                             x:Name="Username"
                                             Margin="0,-1"
                                             Text="{Binding Username.Value, Mode=TwoWay}"
@@ -178,7 +180,7 @@
                                             ReturnType="Next"
                                             MaxLength="50" />
 
-                <entry:QConnectFormEntry Grid.Row="4"
+                <form:FormEntry Grid.Row="4"
                                             x:Name="Password"
                                             Margin="0,-1"
                                             Header="{x:Static resources:LoginResx.PasswordHeader}"
@@ -204,4 +206,4 @@
         </ScrollView>
     </Grid>
 
-</ui:BaseContentPageRxUI>
+</animations:BaseContentPageRxUI>

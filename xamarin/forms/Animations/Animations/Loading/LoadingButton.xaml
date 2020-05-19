@@ -5,15 +5,15 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:behaviors="clr-namespace:Animations.Behaviors"
-             xmlns:renderer="clr-namespace:Animations.Renderers"
+             xmlns:controls="clr-namespace:Animations.Controls;assembly=Animations"
              mc:Ignorable="d"
              x:Name="This"
              x:Class="Animations.Loading.LoadingButton"
-             Style="{StaticResource QConnectLoadingButton}">
+             Style="{StaticResource LoadingButton}">
     <ContentView.Resources>
         <ResourceDictionary
-            x:Name="QConnectResources"
-            Source="/Styles/QConnectStyles.xaml" />
+            x:Name="Resources"
+            Source="/Styles/AnimationsStyles.xaml" />
     </ContentView.Resources>
 
     <ContentView.GestureRecognizers>
@@ -28,7 +28,7 @@
         x:Name="TheGrid"
         Margin="{Binding Source={x:Reference This}, Path=FrameMargin}"
         HorizontalOptions="{Binding Source={x:Reference This}, Path=HorizontalScale}">
-        <renderer:MaterialFrame
+        <controls:MaterialFrame
             x:Name="BorderFrame"
             HeightRequest="{Binding Source={x:Reference This}, Path=ButtonHeight}"
             BackgroundColor="{Binding Source={x:Reference This}, Path=FrameBackgroundColor}"
@@ -48,14 +48,14 @@
                         <FileImageSource File="{Binding Source={x:Reference This}, Path=IconSource}" />
                     </Image.Source>
                 </Image>
-                <renderer:LetterSpacingLabel
+                <controls:LetterSpacingLabel
                     Style="{StaticResource ButtonLabel}"
                     Scale="{Binding Source={x:Reference This}, Path=FontScale}"
                     Text="{Binding Source={x:Reference This}, Path=Text}"
                     TextColor="{Binding Source={x:Reference This}, Path=LabelColor}"
                     LetterSpacing="0.1" />
             </Grid>
-        </renderer:MaterialFrame>
+        </controls:MaterialFrame>
 
         <ActivityIndicator
             x:Name="Indicator"

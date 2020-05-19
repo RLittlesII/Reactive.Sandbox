@@ -1,10 +1,12 @@
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Animations.Controls;
+using Animations.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Animations.Entry
+namespace Animations.Form
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class FormEntry

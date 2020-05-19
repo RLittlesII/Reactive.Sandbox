@@ -14,7 +14,7 @@ namespace Animations.Login
     {
         private readonly IAccountsService _accountCredentialsService;
         private readonly IAccountService _accountService;
-        private readonly IQLog _qLog;
+        private readonly IQLog _qLog; // TODO: ILogger
 
         private Account _lastAccount;
 
@@ -22,7 +22,7 @@ namespace Animations.Login
             IScheduler mainThreadScheduler = null,
             IScheduler taskPoolScheduler = null,
             IScreen hostScreen = null,
-            IQLog qLog = null)
+            ILogger log = null)
             : base("Login View",
                 mainThreadScheduler,
                 taskPoolScheduler,
@@ -31,7 +31,7 @@ namespace Animations.Login
             _accountService = accountService ?? Locator.Current.GetService<IAccountService>();
             _accountCredentialsService = _accountCredentialsService ?? Locator.Current.GetService<IAccountsService>();
 
-            _qLog = qLog ?? Locator.Current.GetService<IQLog>();
+            _qLog = log ?? Locator.Current.GetService<IQLog>();
 
             var versionService = DependencyService.Get<IAppVersionService>();
             AppVersion = versionService?.GetVersion() + " (" + versionService?.GetBuild().ToString() + ")";
@@ -49,7 +49,7 @@ namespace Animations.Login
             LoginCommand.IsExecuting
                 //.Throttle(TimeSpan.FromMilliseconds(100))
                 .ObserveOn(RxApp.MainThreadScheduler)
-                .ToPropertyEx(this, x => x.IsBusy);
+                .ToProperty(this, x => x.IsBusy);
 
             LoadCommand
                 .ThrownExceptions
@@ -160,6 +160,28 @@ namespace Animations.Login
         {
             return string.IsNullOrEmpty(companyName);
         }
+    }
+
+    public abstract class ViewModelBase : ReactiveObject
+    {
+        public ViewModelBase()
+        {
+            HostScreen = Locator.Current.GetService<IScreen>();
+        }
+
+        protected IScreen HostScreen { get; }
+
+        public bool IsBusy { get; }
+
+        public virtual void BuildValidationRules() { }
+    }
+
+    internal interface IAccountService
+    {
+    }
+
+    internal interface IAccountsService
+    {
     }
 
     public static class StringHelpers

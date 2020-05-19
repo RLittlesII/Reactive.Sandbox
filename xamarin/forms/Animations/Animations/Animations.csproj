@@ -11,6 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="8.6.2" />
     <PackageReference Include="Pharmacist.Common" Version="1.*" />
     <PackageReference Include="Pharmacist.MsBuild" Version="1.*" PrivateAssets="all" />
     <PackageReference Include="ReactiveUI.XamForms" Version="11.3.8" />
@@ -30,6 +31,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Loading\" />
+    <Folder Include="Renderers" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Entry\FormEntry.xaml.cs">

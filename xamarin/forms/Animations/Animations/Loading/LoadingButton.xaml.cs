@@ -1,4 +1,6 @@
 using System;
+using System.Reactive;
+using System.Reactive.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -85,10 +87,25 @@ namespace Animations.Loading
             typeof(LoadingButton),
             1.0);
 
+        private TapGestureRecognizer _tapGestureRecognizer = new TapGestureRecognizer();
+
         public LoadingButton()
         {
             InitializeComponent();
+
+            Tapped =
+                Observable
+                    .FromEvent<EventHandler, EventArgs>(eventHandler =>
+                        {
+                            void Handler(object sender, EventArgs args) => eventHandler(args);
+                            return Handler;
+                        },
+                        x => _tapGestureRecognizer.Tapped += x,
+                        x => _tapGestureRecognizer.Tapped -= x)
+                    .Select(x => Unit.Default);
         }
+
+        public IObservable<Unit> Tapped { get; set; }
 
         public ICommand Command
         {

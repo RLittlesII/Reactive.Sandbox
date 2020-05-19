@@ -63,8 +63,16 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Effects\LabelShadowEffect.cs" />
+    <Compile Include="Effects\LabelSizeFontToFitEffect.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="Renderers\BaseContentPageRenderer.cs" />
+    <Compile Include="Renderers\BorderlessEntryRenderer.cs" />
+    <Compile Include="Renderers\CustomEntryRenderer.cs" />
+    <Compile Include="Renderers\EnhancedEditorRenderer.cs" />
+    <Compile Include="Renderers\MaterialFrameRenderer.cs" />
+    <Compile Include="Renderers\NumberEntryRenderer.cs" />
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
