@@ -20,6 +20,8 @@ namespace Dialog.Main
 
             ActionSheet = ReactiveCommand.CreateFromObservable(ExecuteActionSheet);
 
+            Confirmation = ReactiveCommand.CreateFromObservable(ExecuteConfirm);
+
             ActionSheet.ThrownExceptions.Subscribe(exception => ErrorInteraction.Handle(exception.Message));
         }
 
@@ -33,6 +35,8 @@ namespace Dialog.Main
 
         public ReactiveCommand<Unit, Unit> Alert { get; set; }
 
+        public ReactiveCommand<Unit, Unit> Confirmation { get; set; }
+
         protected override void ComposeObservables()
         {
         }
@@ -45,8 +49,7 @@ namespace Dialog.Main
         {
             Interactions
                 .ShowActionSheet
-                .Handle(new ActionSheetDetail("Attention", "Hello", "Goodbye", "ReactiveUI", "Pharmacist",
-                    "DynamicData"))
+                .Handle(new ActionSheetDetail("Attention", "Hello", "Goodbye", "ReactiveUI", "Pharmacist", "DynamicData"))
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Subscribe(output => Action = output);
             
@@ -58,6 +61,16 @@ namespace Dialog.Main
             Interactions
                 .ShowAlert
                 .Handle(new AlertDetail("Attention", "Hello", "Goodbye"))
+                .Subscribe();
+
+            return Observable.Return(Unit.Default);
+        }
+
+        private IObservable<Unit> ExecuteConfirm()
+        {
+            Interactions
+                .ShowConfirmation
+                .Handle(new ConfirmationDetail("Confirmation", "Hello"))
                 .Subscribe();
 
             return Observable.Return(Unit.Default);

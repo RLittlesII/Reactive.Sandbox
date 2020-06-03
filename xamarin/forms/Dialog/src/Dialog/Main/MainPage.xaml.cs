@@ -2,8 +2,11 @@
 using System.ComponentModel;
 using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
+using ImTools;
 using ReactiveUI;
+using Rg.Plugins.Popup.Services;
 using Rocket.Surgery.Airframe.Forms;
+using Xamarin.Forms;
 
 
 namespace Dialog.Main
@@ -15,8 +18,9 @@ namespace Dialog.Main
         {
             InitializeComponent();
 
-            this.BindCommand(ViewModel, x => x.Alert, x => x.Interact, nameof(Interact.Clicked));
+            this.BindCommand(ViewModel, x => x.Alert, x => x.Alert, nameof(Alert.Clicked));
             this.BindCommand(ViewModel, x => x.ActionSheet, x => x.Action, nameof(Action.Clicked));
+            this.BindCommand(ViewModel, x => x.Confirmation, x => x.Confirm, nameof(Confirm.Clicked));
             this.OneWayBind(ViewModel, x => x.Action, x => x.Output.Text);
 
             Interactions
@@ -35,6 +39,29 @@ namespace Dialog.Main
                     context.SetOutput(result);
                 });
 
+            Interactions
+                .ShowConfirmation
+                .RegisterHandler(async context =>
+                {
+                    var confirmationPage = new ConfirmPopup();
+
+                    // Task.WhenAll();
+                    var result =
+                        await PopupNavigation
+                                .Instance
+                                .PushAsync(confirmationPage)
+                                .ToObservable()
+                                .ForkJoin(
+                                    confirmationPage
+                                            .Events()
+                                            .Disappearing
+                                            .Take(1)
+                                            .Select(x => confirmationPage.Result),
+                                    (_, result) => result
+                    );
+                    context.SetOutput(result.ToString());
+                });
+
             this.WhenAnyValue(x => x.ViewModel)
                 .Where(x => x != null)
                 .Subscribe(viewModel =>
@@ -47,8 +74,6 @@ namespace Dialog.Main
                             context.SetOutput(true);
                         });
                 });
-
-
         }
     }
 }

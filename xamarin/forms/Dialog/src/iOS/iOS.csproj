@@ -123,6 +123,7 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Rg.Plugins.Popup" Version="1.2.0.223" />
     <PackageReference Include="Rocket.Surgery.Airframe.Forms" />
     <PackageReference Include="Serilog.Sinks.Xamarin" />
     <PackageReference Include="Xamarin.Forms" />

@@ -23,14 +23,6 @@ namespace Dialog
         public ConfirmPopup()
         {
             InitializeComponent();
-            Observable
-                .FromEvent<EventHandler, EventArgs>(eventHandler =>
-                {
-                    void Handler(object sender, EventArgs args) => eventHandler(args);
-                    return Handler;
-                },
-                x => Disappearing += x,
-                x => Disappearing -= x);
 
             Confirm
                 .Events()

@@ -4,14 +4,18 @@
                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                      xmlns:popup="https://schemas.rocketsurgeonsguild.com/xaml/airframe/popup"
                      xmlns:dialog="clr-namespace:Dialog;assembly=Dialog"
-                     x:Class="Dialog.ConfirmPopup">
+                     x:Class="Dialog.ConfirmPopup"
+                     SystemPadding="100, 250"
+                     BackgroundColor="DeepSkyBlue">
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Hello, world!"
                    VerticalOptions="CenterAndExpand"
                    HorizontalOptions="CenterAndExpand" />
-            <Button x:Name="Confirm" />
-            <Button x:Name="Cancel" />
+            <StackLayout Orientation="Horizontal">
+                <Button x:Name="Confirm" Text="Confirm" />
+                <Button x:Name="Cancel" Text="Cancel" />
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </popup:PopupPageBase>

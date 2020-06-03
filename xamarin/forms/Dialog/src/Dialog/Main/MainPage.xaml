@@ -12,12 +12,19 @@
                TextColor="Black" />
 
         <Button
-            x:Name="Interact"
+            x:Name="Alert"
             Text="Alert"
             BackgroundColor="Indigo"
             TextColor="Azure"
             VerticalOptions="CenterAndExpand" />
         
+        <Button
+            x:Name="Confirm"
+            Text="Confirm"
+            BackgroundColor="Indigo"
+            TextColor="Azure"
+            VerticalOptions="CenterAndExpand" />
+
         <Button
             x:Name="Action"
             Text="Action"

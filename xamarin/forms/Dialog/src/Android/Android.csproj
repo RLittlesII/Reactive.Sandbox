@@ -53,6 +53,7 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Rg.Plugins.Popup" Version="1.2.0.223" />
     <PackageReference Include="Serilog.Sinks.Xamarin">
       <Version>0.*</Version>
     </PackageReference>
