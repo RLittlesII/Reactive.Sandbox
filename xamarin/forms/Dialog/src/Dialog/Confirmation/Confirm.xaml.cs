@@ -18,8 +18,6 @@ namespace Dialog
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ConfirmPopup : PopupPageBase<ConfirmViewModel>
     {
-        private IDisposable _cancelCommand;
-
         public ConfirmPopup()
         {
             InitializeComponent();
@@ -45,7 +43,7 @@ namespace Dialog
                 .Merge(cancel.Select(x => false))
                 .StartWith(false)
                 .DistinctUntilChanged()
-                .Subscribe(_ => Result = _);
+                .Subscribe(result => Result = result);
 
             confirm
                 .Merge(cancel)

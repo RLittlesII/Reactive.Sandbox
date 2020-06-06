@@ -5,23 +5,25 @@
                      xmlns:popup="https://schemas.rocketsurgeonsguild.com/xaml/airframe/popup"
                      xmlns:dialog="clr-namespace:Dialog;assembly=Dialog"
                      x:Class="Dialog.ConfirmPopup"
-                     BackgroundColor="Transparent"
                      BackgroundInputTransparent="True"
-                     HasSystemPadding="False">
+                     HasSystemPadding="False"
+                     CloseWhenBackgroundIsClicked="False"
+                     Padding="48, 288">
     <ContentPage.Content>
-        <Grid Padding="120"
-              BackgroundColor="Indigo">
+        <Grid BackgroundColor="Indigo"
+              VerticalOptions="CenterAndExpand"
+              Padding="8">
             <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
+                <RowDefinition Height="120" />
+                <RowDefinition Height="64" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Label x:Name="Message" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" BackgroundColor="Black"/>
-            <Button x:Name="Confirm" Text="Confirm" Grid.Row="1" Grid.Column="0" BackgroundColor="Black" />
-            <Button x:Name="Cancel" Text="Cancel" Grid.Row="1" Grid.Column="1" BackgroundColor="Black" />
+            <Button x:Name="Confirm" Text="Confirm" Grid.Row="1" Grid.Column="0" BackgroundColor="Black" CornerRadius="5" />
+            <Button x:Name="Cancel" Text="Cancel" Grid.Row="1" Grid.Column="1" BackgroundColor="Black" CornerRadius="5" />
         </Grid>
     </ContentPage.Content>
 </popup:PopupPageBase>
