@@ -4,8 +4,6 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows.Input;
 using ReactiveUI;
-using Rocket.Surgery.Airframe.ViewModels;
-using Sextant;
 
 namespace Dialog.Main
 {
@@ -23,6 +21,7 @@ namespace Dialog.Main
             Confirmation = ReactiveCommand.CreateFromObservable(ExecuteConfirm);
 
             ActionSheet.ThrownExceptions.Subscribe(exception => ErrorInteraction.Handle(exception.Message));
+            Confirmation.ThrownExceptions.Subscribe(exception => ErrorInteraction.Handle(exception.Message));
         }
 
         public string Action
@@ -66,26 +65,10 @@ namespace Dialog.Main
             return Observable.Return(Unit.Default);
         }
 
-        private IObservable<Unit> ExecuteConfirm()
-        {
+        private IObservable<Unit> ExecuteConfirm() =>
             Interactions
                 .ShowConfirmation
                 .Handle(new ConfirmationDetail("Confirmation", "Hello"))
-                .Subscribe();
-
-            return Observable.Return(Unit.Default);
-        }
-    }
-
-    public abstract class NavigationViewModelBase : ViewModelBase, INavigable
-    {
-        public virtual IObservable<Unit> WhenNavigatedTo(INavigationParameter parameter) =>
-            Observable.Return(Unit.Default);
-
-        public IObservable<Unit> WhenNavigatedFrom(INavigationParameter parameter) =>
-            Observable.Return(Unit.Default);
-
-        public IObservable<Unit> WhenNavigatingTo(INavigationParameter parameter) =>
-            Observable.Return(Unit.Default);
+                .Select(x => Unit.Default);
     }
 }

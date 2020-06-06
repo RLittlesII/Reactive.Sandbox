@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
+using System.Threading.Tasks;
 using ImTools;
 using ReactiveUI;
 using Rg.Plugins.Popup.Services;
@@ -44,13 +45,15 @@ namespace Dialog.Main
                 .RegisterHandler(async context =>
                 {
                     var confirmationPage = new ConfirmPopup();
-
+                    
                     // Task.WhenAll();
                     var result =
                         await PopupNavigation
                                 .Instance
                                 .PushAsync(confirmationPage)
                                 .ToObservable()
+                                .SubscribeOn(RxApp.MainThreadScheduler)
+                                .ObserveOn(RxApp.MainThreadScheduler)
                                 .ForkJoin(
                                     confirmationPage
                                             .Events()
@@ -62,6 +65,20 @@ namespace Dialog.Main
                     context.SetOutput(result.ToString());
                 });
 
+            async Task<bool> ConfirmAsync(string message, string title, string acceptText, string rejectText)
+            {
+                var confirmationPage = new ConfirmPopup();
+                var disappearing = new TaskCompletionSource<bool>();
+                confirmationPage.Disappearing += OnDisappearing;
+                await PopupNavigation.Instance.PushAsync(confirmationPage);
+                return await disappearing.Task;
+
+                void OnDisappearing(object sender, System.EventArgs e)
+                {
+                    confirmationPage.Disappearing -= OnDisappearing;
+                    disappearing.SetResult(confirmationPage.Result); 
+                }
+            }
             this.WhenAnyValue(x => x.ViewModel)
                 .Where(x => x != null)
                 .Subscribe(viewModel =>

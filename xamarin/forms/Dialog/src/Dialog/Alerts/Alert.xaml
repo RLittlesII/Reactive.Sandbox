@@ -7,10 +7,18 @@
                      x:Class="Dialog.Alerts.Alert"
                      x:TypeArguments="alerts:AlertViewModel">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Hello, world!"
-                   VerticalOptions="CenterAndExpand"
-                   HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+            <Label Text="Ok" Grid.Row="1" Grid.Column="0" />
+            <Label Text="Cancel" Grid.Row="1" Grid.Column="1" />
+        </Grid>
     </ContentPage.Content>
 </popup:PopupPageBase>

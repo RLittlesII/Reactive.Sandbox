@@ -52,6 +52,8 @@ namespace Dialog
             container
                 .RegisterView<MainPage, MainViewModel>()
                 .RegisterViewModel<MainViewModel>()
+                .RegisterView<ConfirmPopup, ConfirmViewModel>()
+                .RegisterViewModel<ConfirmViewModel>()
                 .RegisterModule(new SextantModule());
         }
 

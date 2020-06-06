@@ -5,17 +5,23 @@
                      xmlns:popup="https://schemas.rocketsurgeonsguild.com/xaml/airframe/popup"
                      xmlns:dialog="clr-namespace:Dialog;assembly=Dialog"
                      x:Class="Dialog.ConfirmPopup"
-                     SystemPadding="100, 250"
-                     BackgroundColor="DeepSkyBlue">
+                     BackgroundColor="Transparent"
+                     BackgroundInputTransparent="True"
+                     HasSystemPadding="False">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Hello, world!"
-                   VerticalOptions="CenterAndExpand"
-                   HorizontalOptions="CenterAndExpand" />
-            <StackLayout Orientation="Horizontal">
-                <Button x:Name="Confirm" Text="Confirm" />
-                <Button x:Name="Cancel" Text="Cancel" />
-            </StackLayout>
-        </StackLayout>
+        <Grid Padding="120"
+              BackgroundColor="Indigo">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Label x:Name="Message" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" BackgroundColor="Black"/>
+            <Button x:Name="Confirm" Text="Confirm" Grid.Row="1" Grid.Column="0" BackgroundColor="Black" />
+            <Button x:Name="Cancel" Text="Cancel" Grid.Row="1" Grid.Column="1" BackgroundColor="Black" />
+        </Grid>
     </ContentPage.Content>
 </popup:PopupPageBase>

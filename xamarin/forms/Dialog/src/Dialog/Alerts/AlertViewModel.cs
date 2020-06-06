@@ -23,7 +23,7 @@ namespace Dialog.Alerts
                             .Events()
                             .Disappearing
                             .Take(1)
-                            .Select(x => confirmationPage.Result)
+                            .Select(x => confirmationPage.ViewModel.Result)
                         , (_, result) => result
                     )
                     .Subscribe(observer);
