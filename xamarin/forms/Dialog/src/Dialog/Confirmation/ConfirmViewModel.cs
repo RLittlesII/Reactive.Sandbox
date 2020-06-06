@@ -1,38 +1,14 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reactive;
-using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using ReactiveUI;
-using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
-using Rocket.Surgery.Airframe.Popup;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace Dialog
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ConfirmPopup : PopupPageBase<ConfirmViewModel>, IConfirmPage
-    {
-        public ConfirmPopup()
-        {
-            InitializeComponent();
-
-            Confirm
-                .Events()
-                .Clicked
-                .InvokeCommand(this, x => x.ViewModel.ConfirmCommand);
-        }
-
-        public bool Result { get; set; }
-    }
-
     public class ConfirmViewModel : ReactiveObject
     {
         public IObservable<bool> Result { get; }
@@ -68,14 +44,8 @@ namespace Dialog
                             .Disappearing
                             .Take(1)
                             .Select(x => confirmationPage.Result)
-                        , (_, result) => result
-                    )
+                        , (_, result) => result)
                     .Subscribe(observer);
             });
-    }
-
-    public interface IConfirmPage
-    {
-        bool Result { get; set; }
     }
 }
