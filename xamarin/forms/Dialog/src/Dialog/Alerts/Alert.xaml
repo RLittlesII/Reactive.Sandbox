@@ -5,20 +5,17 @@
                      xmlns:popup="https://schemas.rocketsurgeonsguild.com/xaml/airframe/popup"
                      xmlns:alerts="clr-namespace:Dialog.Alerts;assembly=Dialog"
                      x:Class="Dialog.Alerts.Alert"
-                     x:TypeArguments="alerts:AlertViewModel">
+                     x:TypeArguments="alerts:AlertViewModel"
+                     BackgroundInputTransparent="True"
+                     HasSystemPadding="False"
+                     CloseWhenBackgroundIsClicked="False"
+                     Padding="48, 288">
     <ContentPage.Content>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
-            <Label Text="Ok" Grid.Row="1" Grid.Column="0" />
-            <Label Text="Cancel" Grid.Row="1" Grid.Column="1" />
-        </Grid>
+        <StackLayout BackgroundColor="Indigo"
+                     VerticalOptions="CenterAndExpand"
+                     Padding="8">
+            <Label x:Name="Message" Text="{Binding Message}" BackgroundColor="Black" TextColor="Azure" HeightRequest="120"/>
+            <Button x:Name="Confirm" Text="{Binding Cancel}" BackgroundColor="Black" CornerRadius="5" HeightRequest="64" />
+        </StackLayout>
     </ContentPage.Content>
 </popup:PopupPageBase>

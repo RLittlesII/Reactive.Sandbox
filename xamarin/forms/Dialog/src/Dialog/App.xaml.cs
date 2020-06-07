@@ -28,15 +28,15 @@ namespace Dialog
 
         protected override void OnStart()
         {
-            var pageAppearing = Application.Current.Events().PageAppearing.Where(x => x != null).Publish().RefCount();
-
-            pageAppearing
-                .Select(page => Interactions.ShowAlert.RegisterHandler(context => ShowAlert(context, page)))
-                .Subscribe();
-
-            pageAppearing
-                .Select(page => Interactions.ShowActionSheet.RegisterHandler(context => ShowActionSheet(context, page)))
-                .Subscribe();
+            // var pageAppearing = Application.Current.Events().PageAppearing.Where(x => x != null).Publish().RefCount();
+            //
+            // pageAppearing
+            //     .Select(page => Interactions.ShowAlert.RegisterHandler(context => ShowAlert(context, page)))
+            //     .Subscribe();
+            //
+            // pageAppearing
+            //     .Select(page => Interactions.ShowActionSheet.RegisterHandler(context => ShowActionSheet(context, page)))
+            //     .Subscribe();
         }
 
         protected override void OnSleep()
@@ -69,4 +69,4 @@ namespace Dialog
             context.SetOutput(result);
         }
     }
-}
+}    

@@ -8,6 +8,7 @@ using Rg.Plugins.Popup.Contracts;
 using Rg.Plugins.Popup.Services;
 using Rocket.Surgery.Airframe.Popup;
 using Splat;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace Dialog.Alerts
@@ -17,11 +18,17 @@ namespace Dialog.Alerts
     {
         private readonly IPopupNavigation _navigation;
 
-        public Alert()
+        public Alert(AlertDetail alertDetail)
         {
             InitializeComponent();
 
-            _navigation = PopupNavigation.Instance;
+            BindingContext = alertDetail;
+
+            Confirm
+                .Events()
+                .Pressed
+                .Subscribe(_ => PopupNavigation.Instance.PopAsync());
+
             // Header.Source = viewModel.HeaderImage;
             // Title.Text = viewModel.Title;
             // Message.Text = viewModel.Message;
@@ -35,28 +42,6 @@ namespace Dialog.Alerts
             //     .RefCount();
         }
 
-        public IObservable<Unit> Completed => BackgroundClick;
-
-        protected override bool OnBackgroundClicked()
-        {
-            return base.OnBackgroundClicked();
-        }
-        protected override void OnDisappearing()
-        {
-            TryCleanup();
-            base.OnDisappearing();
-        }
-        private void TryCleanup()
-        {
-            try
-            {
-            }
-            catch (ObjectDisposedException)
-            {
-                this.Log().Info("Failed on disposing the cancellation subject in the PopupTimeoutView, the object is already disposed");
-            }
-        }
-        private IObservable<Unit> Pop()
-            => Observable.FromAsync(_ => _navigation.PopAsync());
+        public bool Result { get; set; }
     }
 }

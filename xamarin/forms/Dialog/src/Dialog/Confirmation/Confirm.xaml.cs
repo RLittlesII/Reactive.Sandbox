@@ -22,9 +22,6 @@ namespace Dialog
         {
             InitializeComponent();
 
-            this.OneWayBind(ViewModel, x => x.Message, x => x.Message.Text)
-                .DisposeWith(ViewBindings);
-
             var cancel = Cancel
                 .Events()
                 .Pressed;

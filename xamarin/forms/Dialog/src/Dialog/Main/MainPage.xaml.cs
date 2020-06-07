@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
+using Dialog.Alerts;
 using ImTools;
 using ReactiveUI;
 using Rg.Plugins.Popup.Services;
@@ -28,8 +29,23 @@ namespace Dialog.Main
                 .ShowAlert
                 .RegisterHandler(async context =>
                 {
-                    await DisplayAlert(context.Input.Title, context.Input.Message, context.Input.Cancel);
-                    context.SetOutput(true);
+                    var alertPage = new Alert(context.Input);
+                    
+                    // Task.WhenAll();
+                    var result =
+                        await PopupNavigation
+                            .Instance
+                            .PushAsync(alertPage)
+                            .ToObservable()
+                            .ForkJoin(
+                                alertPage
+                                    .Events()
+                                    .Disappearing
+                                    .Take(1)
+                                    .Select(x => alertPage.Result),
+                                (_, result) => result
+                            );
+                    context.SetOutput(result);
                 });
 
             Interactions
@@ -52,8 +68,6 @@ namespace Dialog.Main
                                 .Instance
                                 .PushAsync(confirmationPage)
                                 .ToObservable()
-                                .SubscribeOn(RxApp.MainThreadScheduler)
-                                .ObserveOn(RxApp.MainThreadScheduler)
                                 .ForkJoin(
                                     confirmationPage
                                             .Events()
