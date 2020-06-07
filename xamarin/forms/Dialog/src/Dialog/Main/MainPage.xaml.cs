@@ -1,10 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
 using Dialog.Alerts;
-using ImTools;
 using ReactiveUI;
 using Rg.Plugins.Popup.Services;
 using Rocket.Surgery.Airframe.Forms;
@@ -42,8 +42,8 @@ namespace Dialog.Main
                                     .Events()
                                     .Disappearing
                                     .Take(1)
-                                    .Select(x => alertPage.Result),
-                                (_, result) => result
+                                    .Select(x => Unit.Default),
+                                (_, __) => __
                             );
                     context.SetOutput(result);
                 });
@@ -76,7 +76,7 @@ namespace Dialog.Main
                                             .Select(x => confirmationPage.Result),
                                     (_, result) => result
                     );
-                    context.SetOutput(result.ToString());
+                    context.SetOutput(result);
                 });
 
             async Task<bool> ConfirmAsync(string message, string title, string acceptText, string rejectText)

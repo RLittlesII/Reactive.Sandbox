@@ -9,10 +9,12 @@ namespace Dialog.Alerts
 {
     public class AlertViewModel : ReactiveObject
     {
-        public IObservable<bool> Confirm(string message, string title, string acceptText, string rejectText) =>
-            Observable.Create<bool>(observer =>
+        public IObservable<bool> Confirm(string message, string title, string acceptText, string rejectText)
+        {
+            var confirmationPage = new ConfirmPopup();
+
+            return Observable.Create<bool>(observer =>
             {
-                var confirmationPage = new ConfirmPopup();
                 // Task.WhenAll();
                 return PopupNavigation
                     .Instance
@@ -28,5 +30,6 @@ namespace Dialog.Alerts
                     )
                     .Subscribe(observer);
             });
+        }
     }
 }

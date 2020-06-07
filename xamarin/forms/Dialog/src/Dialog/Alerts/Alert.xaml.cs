@@ -16,8 +16,6 @@ namespace Dialog.Alerts
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Alert : PopupPageBase<AlertViewModel>, IEnableLogger
     {
-        private readonly IPopupNavigation _navigation;
-
         public Alert(AlertDetail alertDetail)
         {
             InitializeComponent();
@@ -41,7 +39,5 @@ namespace Dialog.Alerts
             //     .Publish()
             //     .RefCount();
         }
-
-        public bool Result { get; set; }
     }
 }
