@@ -4,6 +4,7 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
+using Dialog.Actions;
 using Dialog.Alerts;
 using ReactiveUI;
 using Rg.Plugins.Popup.Services;
@@ -52,7 +53,22 @@ namespace Dialog.Main
                 .ShowActionSheet
                 .RegisterHandler(async context =>
                 {
-                    var result = await DisplayActionSheet(context.Input.Title, context.Input.Cancel, context.Input.Destruction, context.Input.Buttons);
+                    var actionsheet = new ActionSheet(context.Input);
+
+                    // Task.WhenAll();
+                    var result =
+                        await PopupNavigation
+                            .Instance
+                            .PushAsync(actionsheet)
+                            .ToObservable()
+                            .ForkJoin(
+                                actionsheet
+                                    .Events()
+                                    .Disappearing
+                                    .Take(1)
+                                    .Select(x => actionsheet.Result),
+                                (_, result) => result);
+
                     context.SetOutput(result);
                 });
 

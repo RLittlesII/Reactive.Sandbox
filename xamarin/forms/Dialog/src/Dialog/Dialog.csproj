@@ -51,6 +51,14 @@
       <SubType>Designer</SubType>
       <Generator></Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Actions\ActionSheet.xaml">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Actions\ActionSheetDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
@@ -64,6 +72,12 @@
     <Compile Update="Confirmation\Confirm.xaml.cs">
       <DependentUpon>Confirm.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Actions\ActionSheet.xaml.cs">
+      <DependentUpon>ActionSheet.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Actions\ActionSheetDetail.xaml.cs">
+      <DependentUpon>ActionSheetDetail.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

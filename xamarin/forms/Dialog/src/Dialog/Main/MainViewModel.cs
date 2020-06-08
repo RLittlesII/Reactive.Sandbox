@@ -48,7 +48,7 @@ namespace Dialog.Main
         {
             Interactions
                 .ShowActionSheet
-                .Handle(new ActionSheetDetail("Attention", "Hello", "Goodbye", "ReactiveUI", "Pharmacist", "DynamicData"))
+                .Handle(new ActionDetailModel("Attention", "Hello", "Goodbye", "ReactiveUI", "Pharmacist", "DynamicData"))
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Subscribe(output => Action = output);
             
@@ -59,7 +59,7 @@ namespace Dialog.Main
         {
             Interactions
                 .ShowAlert
-                .Handle(new AlertDetail("Attention", "Hello", "Goodbye"))
+                .Handle(new AlertDetailModel("Attention", "Hello", "Goodbye"))
                 .Subscribe();
 
             return Observable.Return(Unit.Default);
@@ -68,7 +68,7 @@ namespace Dialog.Main
         private IObservable<Unit> ExecuteConfirm() =>
             Interactions
                 .ShowConfirmation
-                .Handle(new ConfirmationDetail("Confirmation", "Hello"))
+                .Handle(new ConfirmDetailModel("Confirmation", "Hello"))
                 .Select(x => Unit.Default);
     }
 }

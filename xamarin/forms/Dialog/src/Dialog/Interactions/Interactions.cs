@@ -5,10 +5,10 @@ namespace Dialog
 {
     public static class Interactions
     {
-        public static readonly Interaction<AlertDetail, Unit> ShowAlert = new Interaction<AlertDetail, Unit>();
+        public static readonly Interaction<AlertDetailModel, Unit> ShowAlert = new Interaction<AlertDetailModel, Unit>();
 
-        public static readonly Interaction<ActionSheetDetail, string> ShowActionSheet = new Interaction<ActionSheetDetail, string>(RxApp.MainThreadScheduler);
+        public static readonly Interaction<ActionDetailModel, string> ShowActionSheet = new Interaction<ActionDetailModel, string>(RxApp.MainThreadScheduler);
 
-        public static readonly Interaction<ConfirmationDetail, bool> ShowConfirmation = new Interaction<ConfirmationDetail, bool>();
+        public static readonly Interaction<ConfirmDetailModel, bool> ShowConfirmation = new Interaction<ConfirmDetailModel, bool>();
     }
 }

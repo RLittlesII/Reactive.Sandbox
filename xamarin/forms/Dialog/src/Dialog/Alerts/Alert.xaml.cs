@@ -16,11 +16,11 @@ namespace Dialog.Alerts
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Alert : PopupPageBase<AlertViewModel>, IEnableLogger
     {
-        public Alert(AlertDetail alertDetail)
+        public Alert(AlertDetailModel alertDetailModel)
         {
             InitializeComponent();
 
-            BindingContext = alertDetail;
+            BindingContext = alertDetailModel;
 
             Confirm
                 .Events()

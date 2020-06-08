@@ -1,8 +1,11 @@
+using System.Collections;
+using System.Collections.Generic;
+
 namespace Dialog
 {
-    public class ActionSheetDetail
+    public class ActionDetailModel
     {
-        public ActionSheetDetail(string title, string cancel, string destruction, params string[] buttons)
+        public ActionDetailModel(string title, string cancel, string destruction, params string[] buttons)
         {
             Title = title;
             Cancel = cancel;
@@ -16,6 +19,6 @@ namespace Dialog
 
         public string Destruction { get; }
 
-        public string[] Buttons { get; }
+        public IEnumerable<string> Buttons { get; }
     }
 }

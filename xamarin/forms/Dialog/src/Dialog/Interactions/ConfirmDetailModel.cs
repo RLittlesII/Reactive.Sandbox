@@ -1,8 +1,8 @@
 namespace Dialog
 {
-    public class ConfirmationDetail
+    public class ConfirmDetailModel
     {
-        public ConfirmationDetail(string message, string title, string confirmMessage = "Ok", string declineMessage = "Cancel")
+        public ConfirmDetailModel(string message, string title, string confirmMessage = "Ok", string declineMessage = "Cancel")
         {
             Message = message;
             Title = title;

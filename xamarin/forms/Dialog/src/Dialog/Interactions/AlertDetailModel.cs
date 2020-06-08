@@ -1,9 +1,9 @@
 namespace Dialog
 {
-    public class AlertDetail
+    public class AlertDetailModel
     {
 
-        public AlertDetail(string title, string message, string cancel = "Ok")
+        public AlertDetailModel(string title, string message, string cancel = "Ok")
         {
             Title = title;
             Message = message;

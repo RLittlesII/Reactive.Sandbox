@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Dialog.Main;
@@ -57,15 +58,15 @@ namespace Dialog
                 .RegisterModule(new SextantModule());
         }
 
-        private static async Task ShowAlert(InteractionContext<AlertDetail,bool> context, Page page)
+        private static async Task ShowAlert(InteractionContext<AlertDetailModel,bool> context, Page page)
         {
             await page.DisplayAlert(context.Input.Title, context.Input.Message, context.Input.Cancel);
             context.SetOutput(true);
         }
 
-        private static async Task ShowActionSheet(InteractionContext<ActionSheetDetail,string> context, Page page)
+        private static async Task ShowActionSheet(InteractionContext<ActionDetailModel,string> context, Page page)
         {
-            var result = await page.DisplayActionSheet(context.Input.Title, context.Input.Cancel, context.Input.Destruction, context.Input.Buttons);
+            var result = await page.DisplayActionSheet(context.Input.Title, context.Input.Cancel, context.Input.Destruction, context.Input.Buttons.ToArray());
             context.SetOutput(result);
         }
     }
