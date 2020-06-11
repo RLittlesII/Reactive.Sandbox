@@ -12,13 +12,13 @@
                      Padding="24, 400, 24, 0">
 
     <ContentPage.Content>
-        <StackLayout BindableLayout.ItemsSource="{Binding Buttons}" BackgroundColor="Linen">
-            <BindableLayout.ItemTemplate>
+        <actions:Actions x:Name="Sheet" ItemsSource="{Binding Buttons}" BackgroundColor="Linen">
+            <actions:Actions.ItemTemplate>
                 <DataTemplate>
                     <actions:ActionSheetDetail />
                 </DataTemplate>
-            </BindableLayout.ItemTemplate>
-        </StackLayout>
+            </actions:Actions.ItemTemplate>
+        </actions:Actions>
     </ContentPage.Content>
     
     <pages:PopupPage.Animation>

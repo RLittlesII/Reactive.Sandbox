@@ -48,7 +48,7 @@ namespace Dialog.Main
         {
             Interactions
                 .ShowActionSheet
-                .Handle(new ActionDetailModel("Attention", "Hello", "Goodbye", "ReactiveUI", "Pharmacist", "DynamicData"))
+                .Handle(new ActionSheetModel("Attention", "Hello", "Goodbye", "ReactiveUI", "Pharmacist", "DynamicData"))
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Subscribe(output => Action = output);
             

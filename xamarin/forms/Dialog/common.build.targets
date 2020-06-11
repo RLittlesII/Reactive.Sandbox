@@ -17,7 +17,7 @@
         <PackageReference Update="ReactiveUI" Version="11.*" />
         <PackageReference Update="ReactiveUI.Events.XamForms" Version="11.*" />
         <PackageReference Update="ReactiveUI.XamForms" Version="11.*" />
-        <PackageReference Update="Rg.Plugins.Popup" Version="1.2.*" />
+        <PackageReference Update="Rg.Plugins.Popup" Version="2.*" />
         <PackageReference Update="Rocket.Surgery.Airframe" Version="0.6.*" />
         <PackageReference Update="Rocket.Surgery.Airframe.Forms" Version="0.6.*" />
         <PackageReference Update="Rocket.Surgery.Airframe.Configuration" Version="0.6.*" />

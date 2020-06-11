@@ -80,4 +80,8 @@
       <DependentUpon>ActionSheetDetail.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Interactions" />
+  </ItemGroup>
 </Project>

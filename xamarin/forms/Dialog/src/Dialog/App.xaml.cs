@@ -64,9 +64,9 @@ namespace Dialog
             context.SetOutput(true);
         }
 
-        private static async Task ShowActionSheet(InteractionContext<ActionDetailModel,string> context, Page page)
+        private static async Task ShowActionSheet(InteractionContext<ActionSheetModel,string> context, Page page)
         {
-            var result = await page.DisplayActionSheet(context.Input.Title, context.Input.Cancel, context.Input.Destruction, context.Input.Buttons.ToArray());
+            var result = await page.DisplayActionSheet(context.Input.Title, context.Input.Cancel, context.Input.Destruction, context.Input.Buttons.Select(x => x.Key).ToArray());
             context.SetOutput(result);
         }
     }

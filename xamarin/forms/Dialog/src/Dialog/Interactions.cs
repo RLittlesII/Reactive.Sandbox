@@ -7,7 +7,7 @@ namespace Dialog
     {
         public static readonly Interaction<AlertDetailModel, Unit> ShowAlert = new Interaction<AlertDetailModel, Unit>();
 
-        public static readonly Interaction<ActionDetailModel, string> ShowActionSheet = new Interaction<ActionDetailModel, string>(RxApp.MainThreadScheduler);
+        public static readonly Interaction<ActionSheetModel, string> ShowActionSheet = new Interaction<ActionSheetModel, string>(RxApp.MainThreadScheduler);
 
         public static readonly Interaction<ConfirmDetailModel, bool> ShowConfirmation = new Interaction<ConfirmDetailModel, bool>();
     }
