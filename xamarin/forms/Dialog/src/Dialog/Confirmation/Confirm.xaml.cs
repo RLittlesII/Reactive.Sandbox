@@ -22,29 +22,30 @@ namespace Dialog
         {
             InitializeComponent();
 
-            var cancel = Cancel
-                .Events()
-                .Pressed;
+            var cancel = Cancel.Events().Pressed.Select(x => false);
 
             cancel
                 .ObserveOn(RxApp.MainThreadScheduler)
-                .InvokeCommand(this, x => x.ViewModel.Cancel);
+                .InvokeCommand(this, x => x.ViewModel.Cancel)
+                .DisposeWith(ViewBindings);
 
-            var confirm =
-                Confirm
-                    .Events()
-                    .Pressed;
-
-            confirm
-                .Select(x => true)
-                .Merge(cancel.Select(x => false))
-                .StartWith(false)
-                .DistinctUntilChanged()
-                .Subscribe(result => Result = result);
+            var confirm = Confirm.Events().Pressed.Select(x => true);
 
             confirm
                 .Merge(cancel)
-                .Subscribe(_ => PopupNavigation.Instance.PopAsync());
+                .StartWith(false)
+                .DistinctUntilChanged()
+                .Subscribe(result => Result = result)
+                .DisposeWith(ViewBindings);
+
+            confirm
+                .Merge(cancel)
+                .Subscribe(result =>
+                {
+                    Result = result;
+                    PopupNavigation.Instance.PopAsync();
+                })
+                .DisposeWith(ViewBindings);
         }
 
         public bool Result { get; set; }
@@ -52,6 +53,7 @@ namespace Dialog
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
+            ControlBindings?.Dispose();
             ViewBindings?.Dispose();
         }
     }
