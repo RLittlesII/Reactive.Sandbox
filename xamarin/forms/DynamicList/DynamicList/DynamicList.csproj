@@ -1,0 +1,55 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Pharmacist.MsBuild" Version="1.*" PrivateAssets="all" />
+    <PackageReference Include="Pharmacist.Common" Version="1.*" />
+    <PackageReference Include="ReactiveUI.XamForms" Version="11.4.17" />
+    <PackageReference Include="Refit" Version="5.1.67" />
+    <PackageReference Include="RxUI.Plugins.Popup" Version="0.4.0" />
+    <PackageReference Include="Rocket.Surgery.Airframe.Data" Version="0.7.*" />
+    <PackageReference Include="Rocket.Surgery.Airframe.Popup" Version="0.7.*" />
+    <PackageReference Include="Rocket.Surgery.Airframe.Synthetic" Version="0.7.*" />
+    <PackageReference Include="Sextant.XamForms" Version="2.*" />
+    <PackageReference Include="Xamarin.Forms" Version="4.*" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.5.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Crud\ItemViewCell.xaml">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Crud\List.xaml">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Crud\NewItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Search\SearchList.xaml">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Search\SearchResultViewCell.xaml">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Crud\NewItem.xaml.cs">
+      <DependentUpon>NewItem.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+</Project>

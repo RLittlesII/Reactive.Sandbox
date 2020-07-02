@@ -26,10 +26,4 @@
       <Generator></Generator>
     </EmbeddedResource>
   </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="MainItemViewCell.xaml.cs">
-      <DependentUpon>MainItemViewCell.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
 </Project>

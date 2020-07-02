@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<airframe:PopupPageBase x:TypeArguments="crud:NewItemViewModel" xmlns="http://xamarin.com/schemas/2014/forms"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                     xmlns:airframe="https://schemas.rocketsurgeonsguild.com/xaml/airframe/popup"
+                     xmlns:crud="clr-namespace:DynamicList.Crud;assembly=DynamicList"
+                     xmlns:converters="clr-namespace:DynamicList.Converters;assembly=DynamicList"
+                     x:Class="DynamicList.Crud.NewItem"
+                     x:DataType="crud:NewItemViewModel"
+                     HasSystemPadding="False"
+                     CloseWhenBackgroundIsClicked="True"
+                     Padding="48, 288">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:IntEnumConverter x:Key="IntEnum"/>
+            <Style TargetType="Button">
+                <Setter Property="CornerRadius" Value="5" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid BackgroundColor="#fbf5de"
+              VerticalOptions="CenterAndExpand"
+              Padding="8">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="64" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Entry Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Title}" />
+            <Picker Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding DrinkTypes}" SelectedIndex="{Binding SelectedType, Converter={StaticResource IntEnum}}"/>
+            <Button x:Name="Cancel" Text="Cancel" Grid.Row="2" Grid.Column="0" />
+            <Button x:Name="Save" Text="Save" Grid.Row="2" Grid.Column="1" />
+        </Grid>
+    </ContentPage.Content>
+</airframe:PopupPageBase>

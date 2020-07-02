@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<reactiveui:ReactiveContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:d="http://xamarin.com/schemas/2014/forms/design" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                              xmlns:reactiveui="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
+                              xmlns:crud="clr-namespace:DynamicList.Crud;assembly=DynamicList"
+                              x:DataType="crud:ListViewModel"
+                              x:Class="DynamicList.Crud.List"
+                              x:TypeArguments="crud:ListViewModel">
+    <ContentPage.Resources>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="8*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="64" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <SearchBar x:Name="Search" Grid.Row="0" Grid.Column="0" />
+            <Button Grid.Row="0" Grid.Column="1" x:Name="Add" Text="{StaticResource PlusIcon}" FontFamily="{StaticResource FontAwesomeSolid}" HorizontalOptions="End" />
+            <ListView Grid.Row="1" Grid.ColumnSpan="2" x:Name="ListView" IsPullToRefreshEnabled="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <crud:ItemViewCell />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </ContentPage.Content>
+</reactiveui:ReactiveContentPage>

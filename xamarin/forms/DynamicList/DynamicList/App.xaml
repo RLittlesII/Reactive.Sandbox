@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:d="http://xamarin.com/schemas/2014/forms/design" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="DynamicList.App">
+    <Application.Resources>
+
+        <x:String x:Key="PauseIcon">&#xf04c;</x:String>
+        <x:String x:Key="PlusIcon">&#xf067;</x:String>
+        <x:String x:Key="RemoveIcon">&#xf068;</x:String>
+
+        <OnPlatform x:TypeArguments="x:String" x:Key="FontAwesomeBrands">
+            <On Platform="iOS" Value="FontAwesome5Brands-Regular" />
+        </OnPlatform> 
+    
+        <OnPlatform x:TypeArguments="x:String" x:Key="FontAwesomeSolid">
+            <On Platform="iOS" Value="FontAwesome5Free-Solid" />
+        </OnPlatform> 
+    
+        <OnPlatform x:TypeArguments="x:String" x:Key="FontAwesomeRegular">
+            <On Platform="iOS" Value="FontAwesome5Free-Regular" />
+        </OnPlatform>
+    </Application.Resources>
+</Application>

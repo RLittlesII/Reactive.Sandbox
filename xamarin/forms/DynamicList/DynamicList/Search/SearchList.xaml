@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<dynamiclist:ContentPageBase xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                             xmlns:dynamiclist="clr-namespace:DynamicList;assembly=DynamicList"
+                             xmlns:search="clr-namespace:DynamicList.Search;assembly=DynamicList"
+                             x:Class="DynamicList.Search.SearchList"
+                             x:TypeArguments="search:SearchListViewModel"
+                             NavigationPage.HasNavigationBar="False">
+    <StackLayout>
+        <SearchBar Margin="0,40,0,0" x:Name="SearchBar" />
+        <ListView x:Name="SearchListView"
+                  HasUnevenRows="True"
+                  RowHeight="80"
+                  IsPullToRefreshEnabled="True">
+            <ListView.Header>
+                <Label x:Name="SearchResult" />
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <search:SearchResultViewCell/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</dynamiclist:ContentPageBase>
