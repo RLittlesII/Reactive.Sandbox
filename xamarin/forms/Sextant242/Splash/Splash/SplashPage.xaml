@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<xamForms:ReactiveContentPage x:TypeArguments="splash:SplashViewModel" xmlns="http://xamarin.com/schemas/2014/forms"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                              xmlns:xamForms="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
+                              xmlns:splash="clr-namespace:Splash.Splash;assembly=Splash"
+                              x:Class="Splash.Splash.SplashPage"
+                              NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Splash Page"
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="CenterAndExpand" />
+        </StackLayout>
+    </ContentPage.Content>
+</xamForms:ReactiveContentPage>
