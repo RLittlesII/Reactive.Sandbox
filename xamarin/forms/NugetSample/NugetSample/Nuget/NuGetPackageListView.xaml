@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<xamForms:ReactiveContentPage x:TypeArguments="nuget:NuGetPackageListViewModel" xmlns="http://xamarin.com/schemas/2014/forms"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                              xmlns:nuget="clr-namespace:NugetSample.Nuget;assembly=NugetSample"
+                              xmlns:xamForms="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
+                              x:Class="NugetSample.Nuget.NuGetPackageListView">
+    <ContentPage.Content>
+        <StackLayout>
+            <SearchBar x:Name="SearchBar" />
+            <ListView x:Name="ListView"
+                      HasUnevenRows="True"
+                      RowHeight="80"
+                      IsPullToRefreshEnabled="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <nuget:NuGetViewCell />
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Label x:Name="Instructions" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+        </StackLayout>
+    </ContentPage.Content>
+</xamForms:ReactiveContentPage>

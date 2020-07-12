@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<xamForms:ReactiveContentView xmlns="http://xamarin.com/schemas/2014/forms"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                              xmlns:xamForms="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
+                              xmlns:nuget="clr-namespace:NugetSample.Nuget;assembly=NugetSample"
+                              x:Class="NugetSample.Nuget.NuGetVersionViewCell"
+                              x:TypeArguments="nuget:NuGetVersionViewModel">
+    <ContentView.Content>
+        <StackLayout Orientation="Horizontal" HeightRequest="24" Padding="16" >
+            <Label x:Name="PackageVersion" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+            <Label x:Name="DownloadCount" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+        </StackLayout>
+    </ContentView.Content>
+</xamForms:ReactiveContentView>
