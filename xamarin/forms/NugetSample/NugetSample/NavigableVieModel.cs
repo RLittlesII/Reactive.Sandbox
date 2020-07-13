@@ -4,7 +4,7 @@ using System.Reactive.Linq;
 using ReactiveUI;
 using Sextant;
 
-namespace NugetSample.Nuget
+namespace NugetSample
 {
     public abstract class NavigableVieModel : ReactiveObject, INavigable
     {

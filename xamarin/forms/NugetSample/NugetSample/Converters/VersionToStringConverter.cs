@@ -5,29 +5,6 @@ using Splat;
 
 namespace NugetSample.Nuget
 {
-    public class InverseBooleanBindingTypeConverter : IBindingTypeConverter
-    {
-        public int GetAffinityForObjects(Type fromType, Type toType) =>
-            fromType == typeof(bool) ? 100 : 0;
-
-        public bool TryConvert(object @from, Type toType, object conversionHint, out object result)
-        {
-            try
-            {
-                var truth = (bool) @from;
-                result = !truth;
-            }
-            catch (Exception ex)
-            {
-                this.Log().Warn("Couldn't convert object to type: " + toType, ex);
-                result = null;
-                return false;
-            }
-
-            return true;
-        }
-    }
-    
     public class VersionToStringConverter : IBindingTypeConverter
     {
         public int GetAffinityForObjects(Type fromType, Type toType) =>

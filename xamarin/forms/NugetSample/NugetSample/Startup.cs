@@ -31,16 +31,14 @@ namespace NugetSample
 
         private void RegisterViews(IDependencyResolver dependencyResolver)
         {
-            dependencyResolver.RegisterView<MainPage, MainViewModel>();
             dependencyResolver.RegisterView<NuGetPackageListView, NuGetPackageListViewModel>();
             dependencyResolver.RegisterView<NugetPackageDetailPage, NuGetPackageDetailViewModel>();
         }
 
         private void RegisterViewModels(IDependencyResolver dependencyResolver)
         {
-            dependencyResolver.RegisterViewModel<MainViewModel>();
-            dependencyResolver.RegisterViewModel<NuGetPackageListViewModel>(() => new NuGetPackageListViewModel(dependencyResolver.GetService<IParameterViewStackService>(), dependencyResolver.GetService<INuGetPackageService>()));
-            dependencyResolver.RegisterViewModel<NuGetPackageDetailViewModel>(() => new NuGetPackageDetailViewModel(dependencyResolver.GetService<INuGetPackageService>()));
+            dependencyResolver.RegisterViewModel(() => new NuGetPackageListViewModel(dependencyResolver.GetService<IParameterViewStackService>(), dependencyResolver.GetService<INuGetPackageService>()));
+            dependencyResolver.RegisterViewModel(() => new NuGetPackageDetailViewModel(dependencyResolver.GetService<INuGetPackageService>()));
         }
 
         private void RegisterServices(IDependencyResolver dependencyResolver)

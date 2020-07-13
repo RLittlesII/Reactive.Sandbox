@@ -49,8 +49,6 @@ namespace NugetSample.Nuget
             ListView
                 .Events() // The Events API provided by Pharmacist
                 .ItemSelected
-                .Select(_ => Unit.Default)
-                .ObserveOn(RxApp.MainThreadScheduler)
                 .Subscribe(x => ListView.SelectedItem = null)
                 .DisposeWith(ViewBindings);
 

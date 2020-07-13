@@ -17,9 +17,9 @@ namespace NugetSample.Nuget
         private readonly IParameterViewStackService _navigationService;
         private readonly INuGetPackageService _nugetPackageService;
         private string _searchText;
-        private ObservableAsPropertyHelper<IEnumerable<NuGetPackageViewModel>> _searchResults;
-        private ObservableAsPropertyHelper<bool> _isRefreshing;
-        private ObservableAsPropertyHelper<bool> _hasItems;
+        private readonly ObservableAsPropertyHelper<IEnumerable<NuGetPackageViewModel>> _searchResults;
+        private readonly ObservableAsPropertyHelper<bool> _isRefreshing;
+        private readonly ObservableAsPropertyHelper<bool> _hasItems;
 
         public NuGetPackageListViewModel(IParameterViewStackService navigationService, INuGetPackageService nugetPackageService)
         {
@@ -29,7 +29,7 @@ namespace NugetSample.Nuget
             PackageDetails = ReactiveCommand.CreateFromTask<NuGetPackageViewModel>(ExecutePackageDetails);
             Refresh = ReactiveCommand.CreateFromTask(ExecuteRefresh);
 
-            Refresh.ThrownExceptions.Subscribe(exception => this.Log().Warn<Exception>(exception));
+            Refresh.ThrownExceptions.Subscribe(exception => this.Log().Warn(exception));
             PackageDetails.ThrownExceptions.Subscribe(exception => this.Log().Warn(exception));
 
             _searchResults =

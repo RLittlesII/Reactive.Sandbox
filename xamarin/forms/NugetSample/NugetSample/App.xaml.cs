@@ -12,7 +12,8 @@ namespace NugetSample
         {
             InitializeComponent();
 
-            MainPage = new Startup().NavigateToStart<NuGetPackageListViewModel>();
+            var startup = new Startup();
+            MainPage = startup.NavigateToStart<NuGetPackageListViewModel>();
         }
 
         protected override void OnStart()

@@ -13,7 +13,7 @@ namespace NugetSample.Services
 {
     public class NuGetPackageService : INuGetPackageService
     {
-        private SourceRepository _sourceRepository;
+        private readonly SourceRepository _sourceRepository;
 
         public NuGetPackageService()
         {

@@ -16,7 +16,6 @@ namespace NugetSample.Nuget
         public NugetPackageDetailPage()
         {
             InitializeComponent();
-            
 
             this.WhenAnyValue(x => x.ViewModel.PackageSearchMetadata)
                 .Where(x => x != null)
