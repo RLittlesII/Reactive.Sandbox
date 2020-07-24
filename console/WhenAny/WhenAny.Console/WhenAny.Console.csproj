@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+<ItemGroup>
+    <PackageReference Include="ReactiveUI" Version="11.4.17" />
+</ItemGroup>
+</Project>
