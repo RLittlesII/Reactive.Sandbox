@@ -31,17 +31,28 @@ namespace Stopwatch
 
             var task = timer
                 .Timer(TimeSpan.FromSeconds(3), false)
+                .SubscribeOn(Scheduler.Immediate)
                 .TakeWhile(_ => _ >= TimeSpan.Zero)
-                .ForEachAsync(_ =>
-                {
-                    _logger.Information(_.ToString());
-                });
+                .ObserveOn(Scheduler.Default)
+                .ForEachAsync(_ => _logger.Information(_.ToString()));
 
-            _logger.Debug("Hello World!");
-            timer.Start().Subscribe(_=> _logger.Warning("Started"));
-            timer.Pause().Subscribe(_=> _logger.Warning("Paused"));
-            Observable.Return(Unit.Default).SubscribeOn(TaskPoolScheduler.Default).Delay(TimeSpan.FromSeconds(1)).ObserveOn(Scheduler.Default).Subscribe();
-            timer.Resume().Subscribe(_=> _logger.Warning("Resumed"));
+            timer
+                .Start()
+                .Subscribe(_=> _logger.Warning("Started"));
+
+            timer
+                .Pause()
+                .Subscribe(_=> _logger.Warning("Paused"));
+
+            Observable.Return(Unit.Default)
+                .SubscribeOn(TaskPoolScheduler.Default)
+                .Delay(TimeSpan.FromSeconds(1))
+                .ObserveOn(Scheduler.Default)
+                .Subscribe();
+
+            timer
+                .Resume()
+                .Subscribe(_=> _logger.Warning("Resumed"));
 
             await task;
             Log.CloseAndFlush();

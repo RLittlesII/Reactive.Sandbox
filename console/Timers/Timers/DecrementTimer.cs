@@ -44,11 +44,12 @@ namespace Timers
 
             return
                 running
+                    .ObserveOn(Scheduler.Immediate)
                     .Select(isRunning => isRunning ? timer : Observable.Never<TimeSpan>())
                     .Switch()
                     .Publish()
                     .RefCount()
-                    .ObserveOn(_scheduler);
+                    .ObserveOn(Scheduler.Default);
         }
 
         public IObservable<bool> Start()
